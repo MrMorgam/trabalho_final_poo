@@ -62,8 +62,20 @@ class Veiculo {
         return valorFinanciado / quantidadeDeParcelas * taxaDeJuros;
     }
 
+    public prazoDeEntrega(): number {
+        if (this.possuiEstoque()) {
+            return 7;
+        }
 
-    // Métodos de gerenciamento de estoque
+        return 30;
+    }
+
+
+    // Métodos de estoque
+
+    private possuiEstoque(): boolean {
+        return this._quantidadeEmEstoque > 0;
+    }
 
     public darBaixa(quantidade: number): void {
         this._quantidadeEmEstoque -= quantidade;
@@ -72,4 +84,7 @@ class Veiculo {
     public repor(quantidade: number): void {
         this._quantidadeEmEstoque += quantidade;
     }
+
 }
+
+export { Veiculo }
