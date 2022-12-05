@@ -15,7 +15,7 @@ class Veiculo {
         ano: number, 
         valorDeVenda: number,
         quantidadeEmEstoque: number
-        ) 
+    ) 
     {
         this._id = id;
         this._modelo = modelo;
