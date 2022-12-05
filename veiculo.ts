@@ -71,7 +71,6 @@ class Veiculo {
         return 15;
     }
 
-
     // Métodos de estoque
 
     private possuiEstoque(): boolean {
