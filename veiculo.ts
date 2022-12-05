@@ -64,10 +64,10 @@ class Veiculo {
 
     public prazoDeEntrega(): number {
         if (this.possuiEstoque()) {
-            return 7;
+            return 5;
         }
 
-        return 30;
+        return 15;
     }
 
 
