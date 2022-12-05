@@ -55,7 +55,8 @@ class Veiculo {
     public calcularParcelaDoFinanciamento(
         quantidadeDeParcelas: number,
         taxaDeJuros: number,
-        valorDeEntrada: number = this.calcularValorMinimoDeEntrada()): number
+        valorDeEntrada: number = this.calcularValorMinimoDeEntrada()
+    ): number
     {
         const valorFinanciado = this._valorDeVenda - valorDeEntrada;
 
@@ -84,7 +85,6 @@ class Veiculo {
     public repor(quantidade: number): void {
         this._quantidadeEmEstoque += quantidade;
     }
-
 }
 
 export { Veiculo }
