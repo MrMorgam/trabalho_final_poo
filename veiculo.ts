@@ -14,14 +14,13 @@ class Veiculo {
         modelo: string,
         ano: number, 
         valorDeVenda: number,
-        quantidadeEmEstoque: number
     ) 
     {
         this._id = id;
         this._modelo = modelo;
         this._ano = ano;
         this._valorDeVenda = valorDeVenda;
-        this._quantidadeEmEstoque = quantidadeEmEstoque;
+        this._quantidadeEmEstoque = 0;
     }
 
     // Métodos de leitura
