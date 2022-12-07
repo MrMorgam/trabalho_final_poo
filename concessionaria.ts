@@ -2,7 +2,7 @@ class Concessionaria{
     private _veiculos: Veiculo[] = [];
 
 
-    inserir(veic: Veiculo): void{
+    public inserir(veic: Veiculo): void{
         let veiculoProcurado = this.consultar(veic.id);
 
         if(veiculoProcurado == null){
@@ -10,7 +10,7 @@ class Concessionaria{
         }
     }
 
-    consultar(id: number): Veiculo{
+    public consultar(id: number): Veiculo{
         let veiculoProcurado!: Veiculo;
         for(let veic of this._veiculos){
             if(veic.id == id){
@@ -33,15 +33,18 @@ class Concessionaria{
         return indice;
     }
 
-    alterar(veic: Veiculo): void{
+    public alterar(veic: Veiculo): void{
         let indice = this.consultarIndice(veic.id);
 
         if(indice != -1){
             this._veiculos[indice] = veic;
         }
+        else{
+            throw new Vazio("Veículo não está cadastrado");
+        }
     }
 
-    excluir(id: number): void{
+   public excluir(id: number): void{
         let indice: number = this.consultarIndice(id);
         if(indice != -1){
             for(let i: number = 0; i<this._veiculos.length; i++){
@@ -50,9 +53,12 @@ class Concessionaria{
             }
             this._veiculos.pop();
         }
+       else{
+            throw new Vazio("Veículo não está cadastrado");
+        }
     }
 
-    darBaixa(quantidade: number, id: number): void{
+    public darBaixa(quantidade: number, id: number): void{
         let veiculoProcurado = this.consultar(id);
 
         if(veiculoProcurado != null){
@@ -60,7 +66,7 @@ class Concessionaria{
         }
     }
 
-    repor(quantidade: number, id: number): void{
+    public repor(quantidade: number, id: number): void{
         let veiculoProcurado = this.consultar(id);
 
         if(veiculoProcurado != null){
