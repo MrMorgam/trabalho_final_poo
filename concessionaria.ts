@@ -76,4 +76,20 @@ class Concessionaria{
             veiculoProcurado.repor(quantidade);
         }
     }
+    
+    public quantVeiculos(): number{
+        return this._veiculos.length;
+    }
+    
+    public totVeiculos(): number{
+        let totVeiculos: number = 0;
+        for(let veic of this._veiculos) {
+            totVeiculos += veic.id;
+        }
+        return totVeiculos;
+    }
+
+    public mediaVeiculos(): number{
+        return this.totVeiculos()/this.quantVeiculos();
+    }
 }
