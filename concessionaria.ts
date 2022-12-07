@@ -3,10 +3,13 @@ class Concessionaria{
 
 
     public inserir(veic: Veiculo): void{
-        let veiculoProcurado = this.consultar(veic.id);
+        let veiculoProcurado = this.consultarIndice(veic.id);
 
         if(veiculoProcurado == null){
             this._veiculos.push(veic);
+        }
+        else{
+            throw new Duplicado("Veículo já cadastrado");
         }
     }
 
