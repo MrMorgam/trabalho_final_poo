@@ -1,9 +1,6 @@
 class Concessionaria{
     private _veiculos: Veiculo[] = [];
 
-    constructor(veiculos: Veiculo[]){
-        this._veiculos = veiculos;
-    }
 
     inserir(veic: Veiculo): void{
         let veiculoProcurado = this.consultar(veic.id);
