@@ -3,7 +3,7 @@ class Concessionaria{
 
 
     public inserir(veic: Veiculo): void{
-        let veiculoProcurado = this.consultarIndice(veic.id);
+        let veiculoProcurado = this.consultar(veic.id);
 
         if(veiculoProcurado == null){
             this._veiculos.push(veic);
