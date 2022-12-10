@@ -66,7 +66,7 @@ do {
 console.clear();
 
 
-// Funções
+// Funções de CRUD
 
 function inserir(): void {
     console.log("CADASTRAR VEÍCULO\n");
@@ -102,6 +102,7 @@ function inserir(): void {
         concessionaria.inserir(veiculo);
     }  
 }
+
 
 function consultar(): void {
     console.log("CONSULTAR VEÍCULO\n");
@@ -142,6 +143,9 @@ function excluir(): void{
     concessionaria.excluir(id);
 }
 
+
+// Funções de estoque
+
 function darBaixa(): void {
     console.log("DAR BAIXA EM ESTOQUE\n");
     let id: number = Number(input('Id do veículo: '));
@@ -155,6 +159,9 @@ function repor(): void {
     let quantidade: number = Number(input('Quantidade a repor: '));
     concessionaria.repor(quantidade, id);
 }
+
+
+// Demais funções
 
 function totalVeiculos(): void {
     console.log(concessionaria.totalVeiculos());
