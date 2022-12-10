@@ -131,7 +131,7 @@ function repor() {
     concessionaria.repor(quantidade, id);
 }
 function totalVeiculos() {
-    console.log(concessionaria.totVeiculos());
+    console.log(concessionaria.totalVeiculos());
 }
 function mediaVeiculos() {
     console.log(concessionaria.mediaVeiculos());

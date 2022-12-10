@@ -41,7 +41,7 @@ class Concessionaria {
         if (id % 1 != 0) {
             throw new execoes_1.NumeroInvalidoException("O número identificador deve ser inteiro");
         }
-        return true;
+        return id;
     }
     // Métodos de CRUD
     inserir(veiculo) {
@@ -83,15 +83,15 @@ class Concessionaria {
     quantVeiculos() {
         return this._veiculos.length;
     }
-    totVeiculos() {
+    totalVeiculos() {
         let totVeiculos = 0;
-        for (let veic of this._veiculos) {
-            totVeiculos += veic.id;
+        for (let veiculo of this._veiculos) {
+            totVeiculos += veiculo.id;
         }
         return totVeiculos;
     }
     mediaVeiculos() {
-        return this.totVeiculos() / this.quantVeiculos();
+        return this.totalVeiculos() / this.quantVeiculos();
     }
 }
 exports.Concessionaria = Concessionaria;

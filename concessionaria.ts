@@ -40,7 +40,7 @@ class Concessionaria {
 
     // Métodos de validação
 
-    private validarNumeroId(id: number): boolean {
+    private validarNumeroId(id: number): number {
         if (typeof id != "number" || isNaN(id) || id == undefined) {
             throw new NumeroInvalidoException("Formato de número inválido");
         }
@@ -53,7 +53,7 @@ class Concessionaria {
             throw new NumeroInvalidoException("O número identificador deve ser inteiro");
         }
 
-        return true;
+        return id;
     }
 
     // Métodos de CRUD
@@ -115,18 +115,18 @@ class Concessionaria {
         return this._veiculos.length;
     }
     
-    public totVeiculos(): number {
+    public totalVeiculos(): number {
         let totVeiculos: number = 0;
 
-        for(let veic of this._veiculos) {
-            totVeiculos += veic.id;
+        for(let veiculo of this._veiculos) {
+            totVeiculos += veiculo.id;
         }
 
         return totVeiculos;
     }
 
     public mediaVeiculos(): number {
-        return this.totVeiculos() / this.quantVeiculos();
+        return this.totalVeiculos() / this.quantVeiculos();
     }
 }
 
