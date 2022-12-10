@@ -10,12 +10,24 @@ class VeiculoInexistenteException extends Error {
     }
 }
 
-class Validacao extends Error{
+class NumeroInvalidoException extends Error {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+class OpcaoInvalidaException extends Error {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+class AnoInvalidoException extends Error {
     constructor(message: string) {
         super(message);
     }
 }
 
 
-export { VeiculoJaCadastradoException, 
-         VeiculoInexistenteException, Validacao }
+export { VeiculoJaCadastradoException, VeiculoInexistenteException, 
+         NumeroInvalidoException, OpcaoInvalidaException }

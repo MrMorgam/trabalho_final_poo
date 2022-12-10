@@ -1,5 +1,6 @@
 import { Veiculo } from "./veiculo";
-import { VeiculoInexistenteException, Validacao, VeiculoJaCadastradoException } from "./execoes";
+import { VeiculoInexistenteException, VeiculoJaCadastradoException,
+         NumeroInvalidoException} from "./execoes";
 
 class Concessionaria {
     private _veiculos: Veiculo[] = [];
@@ -37,16 +38,37 @@ class Concessionaria {
         return indice;
     }
 
+    // Métodos de validação
+
+    private validarNumeroId(id: number): boolean {
+        if (typeof id != "number" || isNaN(id) || id == undefined) {
+            throw new NumeroInvalidoException("Formato de número inválido");
+        }
+
+        if (id <= 0) {
+            throw new NumeroInvalidoException("O número identificador deve ser positivo");
+        }
+
+        if (id % 1 != 0) {
+            throw new NumeroInvalidoException("O número identificador deve ser inteiro");
+        }
+
+        return true;
+    }
+
     // Métodos de CRUD
 
     public inserir(veiculo: Veiculo): void {
-        let indiceVeiculoProcurado: number = this.consultarIndiceSemExcecao(veiculo.id);        
+        if (this.validarNumeroId(veiculo.id)) {
+            let indiceVeiculoProcurado: number = this.consultarIndiceSemExcecao(veiculo.id);        
 
-        if (indiceVeiculoProcurado == -1) {
-            this._veiculos.push(veiculo);
-        } else {
-            throw new VeiculoJaCadastradoException("Veículo já cadastrado");
+            if (indiceVeiculoProcurado == -1) {
+                this._veiculos.push(veiculo);
+            } else {
+                throw new VeiculoJaCadastradoException("Veículo já cadastrado");
+            }
         }
+        
     }
 
     public consultar(id: number): Veiculo {

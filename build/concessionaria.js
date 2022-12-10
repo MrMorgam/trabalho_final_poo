@@ -30,14 +30,29 @@ class Concessionaria {
         }
         return indice;
     }
+    // Métodos de validação
+    validarNumeroId(id) {
+        if (typeof id != "number" || isNaN(id) || id == undefined) {
+            throw new execoes_1.NumeroInvalidoException("Formato de número inválido");
+        }
+        if (id <= 0) {
+            throw new execoes_1.NumeroInvalidoException("O número identificador deve ser positivo");
+        }
+        if (id % 1 != 0) {
+            throw new execoes_1.NumeroInvalidoException("O número identificador deve ser inteiro");
+        }
+        return true;
+    }
     // Métodos de CRUD
     inserir(veiculo) {
-        let indiceVeiculoProcurado = this.consultarIndiceSemExcecao(veiculo.id);
-        if (indiceVeiculoProcurado == -1) {
-            this._veiculos.push(veiculo);
-        }
-        else {
-            throw new execoes_1.VeiculoJaCadastradoException("Veículo já cadastrado");
+        if (this.validarNumeroId(veiculo.id)) {
+            let indiceVeiculoProcurado = this.consultarIndiceSemExcecao(veiculo.id);
+            if (indiceVeiculoProcurado == -1) {
+                this._veiculos.push(veiculo);
+            }
+            else {
+                throw new execoes_1.VeiculoJaCadastradoException("Veículo já cadastrado");
+            }
         }
     }
     consultar(id) {

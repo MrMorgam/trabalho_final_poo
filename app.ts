@@ -74,7 +74,7 @@ function inserir(): void {
     console.log("1 - Carro\n2 - Moto\n");
     let opcaoVeiculo: number = Number(input(">> "));
     console.log("");
-
+    
     let id: number = Number(input("Número identificador: "));
     let modelo: string = input("Modelo: ");
     let ano: number = Number(input("Ano: "));
@@ -100,9 +100,7 @@ function inserir(): void {
         let veiculo: Moto = new Moto(id, modelo, ano, valorDeVenda, cilindradas);
 
         concessionaria.inserir(veiculo);
-    }
-
-    
+    }  
 }
 
 function consultar(): void {
@@ -133,6 +131,7 @@ function alterar(): void{
     console.log("ALTERAR CADASTRO DE VEÍCULO\n");
     let id: number = Number(input('Id do veículo: '));
     let veiculo: Veiculo;
+
     veiculo = new Veiculo(id, '0', 0, 0);
     concessionaria.alterar(veiculo);
 }
