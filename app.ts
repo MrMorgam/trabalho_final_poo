@@ -68,7 +68,7 @@ console.clear();
 
 // Funções
 
-function inserir(): void{
+function inserir(): void {
     console.log("CADASTRAR VEÍCULO\n");
     console.log("Informe o tipo do veículo:\n");
     console.log("1 - Carro\n2 - Moto\n");
@@ -105,7 +105,7 @@ function inserir(): void{
     
 }
 
-function consultar(): void{
+function consultar(): void {
     console.log("CONSULTAR VEÍCULO\n");
     const id: number = Number(input('Id do veículo: '));
     console.log("");

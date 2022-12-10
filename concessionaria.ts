@@ -64,7 +64,7 @@ class Concessionaria {
    public excluir(id: number): void {
         let indice: number = this.consultarIndice(id);
 
-        for(let i: number = indice; i < this._veiculos.length; i++){
+        for (let i: number = indice; i < this._veiculos.length; i++) {
             this._veiculos[i] = this._veiculos[i+1];
         }
 
@@ -73,13 +73,13 @@ class Concessionaria {
 
     // Métodos de estoque
 
-    public darBaixa(quantidade: number, id: number): void{
+    public darBaixa(quantidade: number, id: number): void {
         let indice = this.consultarIndice(id);
 
         this._veiculos[indice].darBaixa(quantidade);
     }
 
-    public repor(quantidade: number, id: number): void{
+    public repor(quantidade: number, id: number): void {
         let indice = this.consultarIndice(id);
 
     
