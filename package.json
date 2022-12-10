@@ -19,5 +19,8 @@
   "homepage": "https://github.com/MrMorgam/trabalho_final_poo#readme",
   "dependencies": {
     "prompt-sync": "^4.2.0"
+  },
+  "devDependencies": {
+    "@types/prompt-sync": "^4.2.0"
   }
 }
