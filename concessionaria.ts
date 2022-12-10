@@ -1,3 +1,6 @@
+import { Veiculo } from "./veiculo";
+import { Vazio, Validacao, Duplicado } from "./execoes";
+
 class Concessionaria{
     private _veiculos: Veiculo[] = [];
 
@@ -93,3 +96,5 @@ class Concessionaria{
         return this.totVeiculos()/this.quantVeiculos();
     }
 }
+
+export { Concessionaria }

@@ -15,3 +15,6 @@ class Validacao extends Error{
         super(message);
     }
 }
+
+
+export { Duplicado, Vazio, Validacao }

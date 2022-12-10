@@ -1,4 +1,5 @@
-/* não consegui importar */
+import { Concessionaria } from "./concessionaria";
+import { Veiculo } from "./veiculo";
 
 
 let input = prompt();
