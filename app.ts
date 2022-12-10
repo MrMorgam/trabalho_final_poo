@@ -6,7 +6,7 @@ let input = prompt();
 let concessionaria: Concessionaria = new Concessionaria();
 let opcao: String = '';
 
-do{
+do {
     console.log('\nEscolha uma opção: ');
     console.log('1 - Cadastrar 2 - Consultar 3 - Alterar'+  
     '4 - excluir 5 - Dar baixa 6 - Repor '+
