@@ -6,20 +6,20 @@ class Concessionaria {
     constructor() {
         this._veiculos = [];
     }
-    inserir(veic) {
-        let veiculoProcurado = this.consultar(veic.id);
-        if (veiculoProcurado == null) {
-            this._veiculos.push(veic);
+    inserir(veiculo) {
+        let veiculoProcurado = this.consultarIndice(veiculo.id);
+        if (veiculoProcurado != -1) {
+            this._veiculos.push(veiculo);
         }
         else {
-            throw new execoes_1.Duplicado("Veículo já cadastrado");
+            throw new execoes_1.VeiculoJaCadastradoException("Veículo já cadastrado");
         }
     }
     consultar(id) {
         let veiculoProcurado;
-        for (let veic of this._veiculos) {
-            if (veic.id == id) {
-                veiculoProcurado = veic;
+        for (let veiculo of this._veiculos) {
+            if (veiculo.id == id) {
+                veiculoProcurado = veiculo;
                 break;
             }
         }
@@ -33,40 +33,29 @@ class Concessionaria {
                 break;
             }
         }
+        if (indice != -1) {
+            throw new execoes_1.VeiculoInexistenteException("Veículo não encontrado");
+        }
         return indice;
     }
-    alterar(veic) {
-        let indice = this.consultarIndice(veic.id);
-        if (indice != -1) {
-            this._veiculos[indice] = veic;
-        }
-        else {
-            throw new execoes_1.Vazio("Veículo não está cadastrado");
-        }
+    alterar(veiculo) {
+        let indice = this.consultarIndice(veiculo.id);
+        this._veiculos[indice] = veiculo;
     }
     excluir(id) {
         let indice = this.consultarIndice(id);
-        if (indice != -1) {
-            for (let i = 0; i < this._veiculos.length; i++) {
-                this._veiculos[i] = this._veiculos[i + 1];
-            }
-            this._veiculos.pop();
+        for (let i = indice; i < this._veiculos.length; i++) {
+            this._veiculos[i] = this._veiculos[i + 1];
         }
-        else {
-            throw new execoes_1.Vazio("Veículo não está cadastrado");
-        }
+        this._veiculos.pop();
     }
     darBaixa(quantidade, id) {
-        let veiculoProcurado = this.consultar(id);
-        if (veiculoProcurado != null) {
-            veiculoProcurado.darBaixa(quantidade);
-        }
+        let indice = this.consultarIndice(id);
+        this._veiculos[indice].darBaixa(quantidade);
     }
     repor(quantidade, id) {
-        let veiculoProcurado = this.consultar(id);
-        if (veiculoProcurado != null) {
-            veiculoProcurado.repor(quantidade);
-        }
+        let indice = this.consultarIndice(id);
+        this._veiculos[indice].repor(quantidade);
     }
     quantVeiculos() {
         return this._veiculos.length;

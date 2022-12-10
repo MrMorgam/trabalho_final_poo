@@ -63,7 +63,7 @@ do {
 console.clear();
 // Funções
 function inserir() {
-    console.log("Cadastrar veículo\n");
+    console.log("CADASTRAR VEÍCULO\n");
     console.log("Informe o tipo do veículo:\n");
     console.log("1 - Carro\n2 - Moto\n");
     let opcaoVeiculo = Number(input(">> "));
@@ -74,9 +74,9 @@ function inserir() {
     let valorDeVenda = Number(input("Valor de venda: "));
     if (opcaoVeiculo == 1) {
         let potenciaDoMotor = input("Potência do motor: ");
-        let tipoDeCombustivel = input("Combustível: ");
-        let tipoDeCambio = input("Câmbio: ");
-        let tipoDeDirecao = input("Direção: ");
+        let tipoDeCombustivel = input("Tipo de combustível: ");
+        let tipoDeCambio = input("Tipo de câmbio: ");
+        let tipoDeDirecao = input("Tipo de direção: ");
         let veiculo = new carro_1.Carro(id, modelo, ano, valorDeVenda, potenciaDoMotor, tipoDeCombustivel, tipoDeCambio, tipoDeDirecao);
         concessionaria.inserir(veiculo);
     }
@@ -87,45 +87,47 @@ function inserir() {
     }
 }
 function consultar() {
-    console.log("Consultar veículo\n");
-    const id = Number(input('Id do veiculo: '));
+    console.log("CONSULTAR VEÍCULO\n");
+    const id = Number(input('Id do veículo: '));
     console.log("");
     let veiculo = concessionaria.consultar(id);
     console.log(`Número identificador: ${veiculo.id}`);
     console.log(`Modelo: ${veiculo.modelo}`);
     console.log(`Ano: ${veiculo.ano}`);
     console.log(`Valor de venda: ${veiculo.valorDeVenda}`);
-    console.log(`Quantidade: ${veiculo.quantidadeEmEstoque}`);
+    console.log(`Quantidade em estoque: ${veiculo.quantidadeEmEstoque}`);
     if (veiculo instanceof carro_1.Carro) {
         console.log(`Potência do motor: ${veiculo.potenciaDoMotor}`);
-        console.log(`Combustível: ${veiculo.tipoDeCombustivel}`);
-        console.log(`Câmbio: ${veiculo.tipoDeCambio}`);
-        console.log(`Direção: ${veiculo.tipoDeDirecao}`);
+        console.log(`Tipo de combustível: ${veiculo.tipoDeCombustivel}`);
+        console.log(`Tipo de câmbio: ${veiculo.tipoDeCambio}`);
+        console.log(`Tipo de direção: ${veiculo.tipoDeDirecao}`);
     }
     if (veiculo instanceof moto_1.Moto) {
         console.log(`Cilindradas: ${veiculo.cilindradas}`);
     }
 }
 function alterar() {
-    console.log("\nAlterar Conta\n");
-    let id = Number(input('Informe o id do veículo: '));
+    console.log("ALTERAR CADASTRO DE VEÍCULO\n");
+    let id = Number(input('Id do veículo: '));
     let veiculo;
     veiculo = new veiculo_1.Veiculo(id, '0', 0, 0);
     concessionaria.alterar(veiculo);
 }
 function excluir() {
-    console.log("\nExcluir Conta\n");
-    let id = Number(input('Informe o id do veículo: '));
+    console.log("EXCLUIR CADASTRO DE VEÍCULO\n");
+    let id = Number(input('Id do veículo: '));
     concessionaria.excluir(id);
 }
 function darBaixa() {
+    console.log("DAR BAIXA EM ESTOQUE\n");
     let id = Number(input('Id do veículo: '));
-    let quantidade = Number(input('Quantidade: '));
+    let quantidade = Number(input('Quantidade a dar baixa: '));
     concessionaria.darBaixa(quantidade, id);
 }
 function repor() {
+    console.log("REPOR ESTOQUE\n");
     let id = Number(input('Id do veículo: '));
-    let quantidade = Number(input('Quantidade: '));
+    let quantidade = Number(input('Quantidade a repor: '));
     concessionaria.repor(quantidade, id);
 }
 function totalVeiculos() {

@@ -1,10 +1,10 @@
-class Duplicado extends Error {
+class VeiculoJaCadastradoException extends Error {
     constructor(message: string) {
         super(message);
     }
 }
 
-class Vazio extends Error {
+class VeiculoInexistenteException extends Error {
     constructor(message: string) {
         super(message);
     }
@@ -17,4 +17,5 @@ class Validacao extends Error{
 }
 
 
-export { Duplicado, Vazio, Validacao }
+export { VeiculoJaCadastradoException, 
+         VeiculoInexistenteException, Validacao }

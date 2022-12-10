@@ -1,25 +1,25 @@
 import { Veiculo } from "./veiculo";
-import { Vazio, Validacao, Duplicado } from "./execoes";
+import { VeiculoInexistenteException, Validacao, VeiculoJaCadastradoException } from "./execoes";
 
 class Concessionaria {
     private _veiculos: Veiculo[] = [];
 
-    public inserir(veic: Veiculo): void {
-        let veiculoProcurado = this.consultar(veic.id);
+    public inserir(veiculo: Veiculo): void {
+        let veiculoProcurado = this.consultarIndice(veiculo.id);
 
-        if (veiculoProcurado == null) {
-            this._veiculos.push(veic);
+        if (veiculoProcurado != -1) {
+            this._veiculos.push(veiculo);
         } else {
-            throw new Duplicado("Veículo já cadastrado");
+            throw new VeiculoJaCadastradoException("Veículo já cadastrado");
         }
     }
 
     public consultar(id: number): Veiculo {
         let veiculoProcurado!: Veiculo;
 
-        for (let veic of this._veiculos) {
-            if (veic.id == id) {
-                veiculoProcurado = veic;
+        for (let veiculo of this._veiculos) {
+            if (veiculo.id == id) {
+                veiculoProcurado = veiculo;
                 break;
             }
         }
@@ -30,53 +30,48 @@ class Concessionaria {
     private consultarIndice(id: number): number {
         let indice: number = -1;
 
-        for(let i: number = 0; i<this._veiculos.length; i++) {
-            if(this._veiculos[i].id == id) {
+        for (let i: number = 0; i < this._veiculos.length; i++) {
+            if (this._veiculos[i].id == id) {
                 indice = i;
                 break;
             }
         }
+
+        if (indice != -1) {
+            throw new VeiculoInexistenteException("Veículo não encontrado")
+        }
+        
         return indice;
     }
 
-    public alterar(veic: Veiculo): void {
-        let indice = this.consultarIndice(veic.id);
+    public alterar(veiculo: Veiculo): void {
+        let indice = this.consultarIndice(veiculo.id);
 
-        if(indice != -1) {
-            this._veiculos[indice] = veic;
-        } else {
-            throw new Vazio("Veículo não está cadastrado");
-        }
+        this._veiculos[indice] = veiculo;
     }
 
    public excluir(id: number): void {
         let indice: number = this.consultarIndice(id);
 
-        if (indice != -1) {
-            for(let i: number = 0; i<this._veiculos.length; i++){
-                this._veiculos[i] = this._veiculos[i+1];
-            }
-
-            this._veiculos.pop();
-        } else {
-            throw new Vazio("Veículo não está cadastrado");
+        for(let i: number = indice; i < this._veiculos.length; i++){
+            this._veiculos[i] = this._veiculos[i+1];
         }
+
+        this._veiculos.pop();
     }
 
     public darBaixa(quantidade: number, id: number): void{
-        let veiculoProcurado = this.consultar(id);
+        let indice = this.consultarIndice(id);
 
-        if (veiculoProcurado != null) {
-            veiculoProcurado.darBaixa(quantidade);
-        }
+        this._veiculos[indice].darBaixa(quantidade);
     }
 
     public repor(quantidade: number, id: number): void{
-        let veiculoProcurado = this.consultar(id);
+        let indice = this.consultarIndice(id);
 
-        if (veiculoProcurado != null) {
-            veiculoProcurado.repor(quantidade);
-        }
+    
+        this._veiculos[indice].repor(quantidade);
+        
     }
     
     public quantVeiculos(): number {
