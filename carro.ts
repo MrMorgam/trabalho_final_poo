@@ -49,5 +49,6 @@ class Carro extends Veiculo implements Tributavel {
     public calcularIPVA(valorVenal: number): number {
         return valorVenal * 0.025;
     }
-
 }
+
+export { Carro }
