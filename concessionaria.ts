@@ -4,28 +4,7 @@ import { VeiculoInexistenteException, Validacao, VeiculoJaCadastradoException } 
 class Concessionaria {
     private _veiculos: Veiculo[] = [];
 
-    public inserir(veiculo: Veiculo): void {
-        let veiculoProcurado = this.consultarIndice(veiculo.id);
-
-        if (veiculoProcurado != -1) {
-            this._veiculos.push(veiculo);
-        } else {
-            throw new VeiculoJaCadastradoException("Veículo já cadastrado");
-        }
-    }
-
-    public consultar(id: number): Veiculo {
-        let veiculoProcurado!: Veiculo;
-
-        for (let veiculo of this._veiculos) {
-            if (veiculo.id == id) {
-                veiculoProcurado = veiculo;
-                break;
-            }
-        }
-
-        return veiculoProcurado;
-    }
+    // Método para consultar índice
 
     private consultarIndice(id: number): number {
         let indice: number = -1;
@@ -37,11 +16,43 @@ class Concessionaria {
             }
         }
 
-        if (indice != -1) {
-            throw new VeiculoInexistenteException("Veículo não encontrado")
+        if (indice == -1) {
+            throw new VeiculoInexistenteException("Veículo não encontrado");
         }
         
         return indice;
+    }
+
+
+    private consultarIndiceSemExcecao(id: number) {
+        let indice: number = -1;
+
+        for (let i: number = 0; i < this._veiculos.length; i++) {
+            if (this._veiculos[i].id == id) {
+                indice = i;
+                break;
+            }
+        }
+        
+        return indice;
+    }
+
+    // Métodos de CRUD
+
+    public inserir(veiculo: Veiculo): void {
+        let indiceVeiculoProcurado: number = this.consultarIndiceSemExcecao(veiculo.id);        
+
+        if (indiceVeiculoProcurado == -1) {
+            this._veiculos.push(veiculo);
+        } else {
+            throw new VeiculoJaCadastradoException("Veículo já cadastrado");
+        }
+    }
+
+    public consultar(id: number): Veiculo {
+        let indice: number = this.consultarIndice(id);
+
+        return this._veiculos[indice];
     }
 
     public alterar(veiculo: Veiculo): void {
@@ -60,6 +71,8 @@ class Concessionaria {
         this._veiculos.pop();
     }
 
+    // Métodos de estoque
+
     public darBaixa(quantidade: number, id: number): void{
         let indice = this.consultarIndice(id);
 
@@ -73,6 +86,8 @@ class Concessionaria {
         this._veiculos[indice].repor(quantidade);
         
     }
+
+    // Demais métodos
     
     public quantVeiculos(): number {
         return this._veiculos.length;

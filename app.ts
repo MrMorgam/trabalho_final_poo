@@ -158,9 +158,9 @@ function repor(): void {
 }
 
 function totalVeiculos(): void {
-    concessionaria.totVeiculos();
+    console.log(concessionaria.totVeiculos());
 }
 
 function mediaVeiculos(): void {
-    concessionaria.mediaVeiculos();
+    console.log(concessionaria.mediaVeiculos());
 }

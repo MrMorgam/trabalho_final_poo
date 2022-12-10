@@ -6,25 +6,7 @@ class Concessionaria {
     constructor() {
         this._veiculos = [];
     }
-    inserir(veiculo) {
-        let veiculoProcurado = this.consultarIndice(veiculo.id);
-        if (veiculoProcurado != -1) {
-            this._veiculos.push(veiculo);
-        }
-        else {
-            throw new execoes_1.VeiculoJaCadastradoException("Veículo já cadastrado");
-        }
-    }
-    consultar(id) {
-        let veiculoProcurado;
-        for (let veiculo of this._veiculos) {
-            if (veiculo.id == id) {
-                veiculoProcurado = veiculo;
-                break;
-            }
-        }
-        return veiculoProcurado;
-    }
+    // Método para consultar índice
     consultarIndice(id) {
         let indice = -1;
         for (let i = 0; i < this._veiculos.length; i++) {
@@ -33,10 +15,34 @@ class Concessionaria {
                 break;
             }
         }
-        if (indice != -1) {
+        if (indice == -1) {
             throw new execoes_1.VeiculoInexistenteException("Veículo não encontrado");
         }
         return indice;
+    }
+    consultarIndiceSemExcecao(id) {
+        let indice = -1;
+        for (let i = 0; i < this._veiculos.length; i++) {
+            if (this._veiculos[i].id == id) {
+                indice = i;
+                break;
+            }
+        }
+        return indice;
+    }
+    // Métodos de CRUD
+    inserir(veiculo) {
+        let indiceVeiculoProcurado = this.consultarIndiceSemExcecao(veiculo.id);
+        if (indiceVeiculoProcurado == -1) {
+            this._veiculos.push(veiculo);
+        }
+        else {
+            throw new execoes_1.VeiculoJaCadastradoException("Veículo já cadastrado");
+        }
+    }
+    consultar(id) {
+        let indice = this.consultarIndice(id);
+        return this._veiculos[indice];
     }
     alterar(veiculo) {
         let indice = this.consultarIndice(veiculo.id);
@@ -49,6 +55,7 @@ class Concessionaria {
         }
         this._veiculos.pop();
     }
+    // Métodos de estoque
     darBaixa(quantidade, id) {
         let indice = this.consultarIndice(id);
         this._veiculos[indice].darBaixa(quantidade);
@@ -57,6 +64,7 @@ class Concessionaria {
         let indice = this.consultarIndice(id);
         this._veiculos[indice].repor(quantidade);
     }
+    // Demais métodos
     quantVeiculos() {
         return this._veiculos.length;
     }
