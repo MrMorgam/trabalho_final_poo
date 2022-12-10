@@ -3,19 +3,20 @@ import { Veiculo } from "./veiculo";
 import prompt from "prompt-sync";
 
 
-let input = prompt();
+const input = prompt();
 let concessionaria: Concessionaria = new Concessionaria();
 let opcao: string = '';
 
 do {
-    console.log('\nEscolha uma opção: ');
-    console.log('1 - Cadastrar 2 - Consultar 3 - Alterar'+  
-    '4 - excluir 5 - Dar baixa 6 - Repor '+
-    '7 - Total_Veiculos 8 - Media_Veículos' +
-     '0 - Sair ');
+    console.log("\nEscolha uma opção: ");
+    console.log("1 - Cadastrar \n2 - Consultar \n3 - Alterar" +  
+                "\n4 - Excluir \n5 - Dar baixa \n6 - Repor " +
+                "\n7 - Total_Veiculos \n8 - Media_Veículos" +
+                "\n0 - Sair");
 
-     opcao = prompt() as string;
-     switch(opcao) {
+    opcao = input("Opção: ");
+
+    switch(opcao) {
         case "1":
             inserir();
             break;
@@ -42,29 +43,35 @@ do {
             break;
         case "0":
             break;
-     }
-     prompt("Operação finalizada. Pressione <enter> ");
+    }
+
+    input("Operação finalizada. Pressione <enter>");
+    console.clear();
 
 } while (opcao != "0");
 console.log("Aplicação Encerrada");
 
 function inserir(): void{
     console.log("\nCadastrar Conta\n");
-    let id: number = Number(prompt('Informe o id: '));
+    let id: number = Number(input("Número identificador: "));
+    let modelo: string = input("Modelo: ");
+    let ano: number = Number(input("Ano: "));
+    let valorDeVenda: number = Number(input("Valor de venda: "))
+
     let veiculo: Veiculo;
-    veiculo = new Veiculo(id, '0', 0, 0);
+    veiculo = new Veiculo(id, modelo, ano, valorDeVenda);
     concessionaria.inserir(veiculo);
 }
 
 function consultar(): void{
     console.log("\nConsultar Veículo\n");
-    let id: number = Number(prompt('Informe o id do veiculo: '));
+    let id: number = Number(input('Informe o id do veiculo: '));
     console.log(concessionaria.consultar(id));
 }
 
 function alterar(): void{
     console.log("\nAlterar Conta\n");
-    let id: number = Number(prompt('Informe o id do veículo: '));
+    let id: number = Number(input('Informe o id do veículo: '));
     let veiculo: Veiculo;
     veiculo = new Veiculo(id, '0', 0, 0);
     concessionaria.alterar(veiculo);
@@ -72,19 +79,19 @@ function alterar(): void{
 
 function excluir(): void{
     console.log("\nExcluir Conta\n")
-    let id: number = Number(prompt('Informe o id do veículo: '));
+    let id: number = Number(input('Informe o id do veículo: '));
     concessionaria.excluir(id);
 }
 
 function darBaixa(): void{
-    let id: number = Number(prompt('Informe o id do veículo: '));
-    let quantidade: number = Number(prompt('Quantidade: '));
+    let id: number = Number(input('Informe o id do veículo: '));
+    let quantidade: number = Number(input('Quantidade: '));
     concessionaria.darBaixa(quantidade, id);
 }
 
 function repor(): void{
-    let id: number = Number(prompt('Informe o id do veículo: '));
-    let quantidade: number = Number(prompt('Quantidade: '));
+    let id: number = Number(input('Informe o id do veículo: '));
+    let quantidade: number = Number(input('Quantidade: '));
     concessionaria.repor(quantidade, id);
 }
 
