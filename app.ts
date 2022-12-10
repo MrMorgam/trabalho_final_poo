@@ -1,10 +1,11 @@
 import { Concessionaria } from "./concessionaria";
 import { Veiculo } from "./veiculo";
+import prompt from "prompt-sync";
 
 
 let input = prompt();
 let concessionaria: Concessionaria = new Concessionaria();
-let opcao: String = '';
+let opcao: string = '';
 
 do {
     console.log('\nEscolha uma opção: ');
