@@ -16,7 +16,7 @@ class Concessionaria {
             }
         }
         if (indice == -1) {
-            throw new execoes_1.VeiculoInexistenteException("Veículo não encontrado");
+            throw new execoes_1.VeiculoInexistenteException("Erro: veículo não encontrado");
         }
         return indice;
     }
@@ -33,18 +33,18 @@ class Concessionaria {
     // Métodos de validação
     validarNumeroId(id) {
         if (typeof id != "number" || isNaN(id) || id <= 0 || id % 1 != 0) {
-            throw new execoes_1.NumeroInvalidoException("Número identificador inválido");
+            throw new execoes_1.NumeroInvalidoException("Erro: ID inválido");
         }
         return id;
     }
     validarAno(ano) {
         if (ano < 1 || ano > 2999 || ano % 1 != 0) {
-            throw new execoes_1.AnoInvalidoException("Ano inválido");
+            throw new execoes_1.AnoInvalidoException("Erro: ano inválido");
         }
     }
     validarValorDeVenda(valorDeVenda) {
         if (valorDeVenda <= 0) {
-            throw new execoes_1.ValorDeVendaInvalidoException("Valor de venda inválido");
+            throw new execoes_1.ValorDeVendaInvalidoException("Erro: valor de venda inválido");
         }
     }
     // Métodos de CRUD
@@ -57,7 +57,7 @@ class Concessionaria {
                 this._veiculos.push(veiculo);
             }
             else {
-                throw new execoes_1.VeiculoJaCadastradoException("Veículo já cadastrado");
+                throw new execoes_1.VeiculoJaCadastradoException("Erro: veículo já cadastrado");
             }
         }
     }
@@ -81,23 +81,23 @@ class Concessionaria {
     // Métodos de estoque
     darBaixa(quantidade, id) {
         if (this.consultar(id).quantidadeEmEstoque - quantidade < 0) {
-            throw new execoes_1.NaoPossuiEstoqueException("O veículo não possui estoque suficiente");
+            throw new execoes_1.NaoPossuiEstoqueException("Erro: o veículo não possui estoque suficiente para realizar a operação");
         }
         if (quantidade < 0 || quantidade % 1 != 0) {
-            throw new execoes_1.QuantidadeInvalidaException("Quantidade inválida");
+            throw new execoes_1.QuantidadeInvalidaException("Erro: quantidade inválida");
         }
         let indice = this.consultarIndice(id);
         this._veiculos[indice].darBaixa(quantidade);
     }
     repor(quantidade, id) {
         if (quantidade < 0 || quantidade % 1 != 0) {
-            throw new execoes_1.QuantidadeInvalidaException("Quantidade inválida");
+            throw new execoes_1.QuantidadeInvalidaException("Erro: quantidade inválida");
         }
         let indice = this.consultarIndice(id);
         this._veiculos[indice].repor(quantidade);
     }
     listarVeiculos() {
-        let listaVeiculos = '';
+        let listaVeiculos = "";
         for (let i = 0; i < this._veiculos.length; i++) {
             listaVeiculos = listaVeiculos +
                 "ID: " + this._veiculos[i].id +

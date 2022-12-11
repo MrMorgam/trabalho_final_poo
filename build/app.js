@@ -66,11 +66,12 @@ do {
         }
     }
     catch (e) {
+        console.log("");
         if (e instanceof execoes_1.AplicacaoError) {
             console.log(e.message);
         }
         else {
-            console.log("Erro inesperado. Contate o administrador do sistema.");
+            console.log("Erro inesperado: contate o administrador do sistema.");
         }
     }
     console.log("");

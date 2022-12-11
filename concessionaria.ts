@@ -21,7 +21,7 @@ class Concessionaria {
         }
 
         if (indice == -1) {
-            throw new VeiculoInexistenteException("Veículo não encontrado");
+            throw new VeiculoInexistenteException("Erro: veículo não encontrado");
         }
         
         return indice;
@@ -45,7 +45,7 @@ class Concessionaria {
 
     private validarNumeroId(id: number): number {
         if (typeof id != "number" || isNaN(id) || id <= 0 || id % 1 != 0) {
-            throw new NumeroInvalidoException("Número identificador inválido");
+            throw new NumeroInvalidoException("Erro: ID inválido");
         }
 
         return id;
@@ -53,13 +53,13 @@ class Concessionaria {
 
     private validarAno(ano: number): void {
         if (ano < 1 || ano > 2999 || ano % 1 != 0) {
-            throw new AnoInvalidoException("Ano inválido");
+            throw new AnoInvalidoException("Erro: ano inválido");
         }
     }
 
     private validarValorDeVenda(valorDeVenda: number): void {
         if (valorDeVenda <= 0) {
-            throw new ValorDeVendaInvalidoException("Valor de venda inválido");
+            throw new ValorDeVendaInvalidoException("Erro: valor de venda inválido");
         }
     }
 
@@ -75,7 +75,7 @@ class Concessionaria {
             if (indiceVeiculoProcurado == -1) {
                 this._veiculos.push(veiculo);
             } else {
-                throw new VeiculoJaCadastradoException("Veículo já cadastrado");
+                throw new VeiculoJaCadastradoException("Erro: veículo já cadastrado");
             }
         }
         
@@ -110,11 +110,11 @@ class Concessionaria {
 
     public darBaixa(quantidade: number, id: number): void {
         if (this.consultar(id).quantidadeEmEstoque - quantidade < 0) {
-            throw new NaoPossuiEstoqueException("O veículo não possui estoque suficiente");
+            throw new NaoPossuiEstoqueException("Erro: o veículo não possui estoque suficiente para realizar a operação");
         }
 
         if (quantidade < 0 || quantidade % 1 != 0) {
-            throw new QuantidadeInvalidaException("Quantidade inválida")
+            throw new QuantidadeInvalidaException("Erro: quantidade inválida")
         }
 
         let indice = this.consultarIndice(id);
@@ -124,7 +124,7 @@ class Concessionaria {
 
     public repor(quantidade: number, id: number): void {
         if (quantidade < 0 || quantidade % 1 != 0) {
-            throw new QuantidadeInvalidaException("Quantidade inválida")
+            throw new QuantidadeInvalidaException("Erro: quantidade inválida")
         }
         
         let indice = this.consultarIndice(id);
@@ -133,8 +133,9 @@ class Concessionaria {
     }
      
     public listarVeiculos(): string {
-         let listaVeiculos = '';
-         for (let i: number = 0; i<this._veiculos.length; i++) {
+        let listaVeiculos: string = "";
+
+        for (let i: number = 0; i < this._veiculos.length; i++) {
             listaVeiculos = listaVeiculos + 
             "ID: " + this._veiculos[i].id +
             " | Modelo: " + this._veiculos[i].modelo +
@@ -142,6 +143,7 @@ class Concessionaria {
             " | Valor de venda: " + this._veiculos[i].valorDeVenda +
             " | Quantidade em estoque: " + this._veiculos[i].quantidadeEmEstoque + "\n";
         }
+        
         return listaVeiculos;
     }
 
