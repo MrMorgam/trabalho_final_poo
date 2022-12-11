@@ -136,10 +136,6 @@ function alterar(): void {
     let id: number = Number(input('Id do veículo: '));
     let veiculo: Veiculo;
 
-
-
-    
-
     veiculo = new Veiculo(id, '0', 0, 0);
     concessionaria.alterar(veiculo);
 }
@@ -165,15 +161,4 @@ function repor(): void {
     let id: number = Number(input('Id do veículo: '));
     let quantidade: number = Number(input('Quantidade a repor: '));
     concessionaria.repor(quantidade, id);
-}
-
-
-// Demais funções
-
-function totalVeiculos(): void {
-    console.log(concessionaria.totalVeiculos());
-}
-
-function mediaVeiculos(): void {
-    console.log(concessionaria.mediaVeiculos());
 }
