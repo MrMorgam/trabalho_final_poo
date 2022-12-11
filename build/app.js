@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const concessionaria_1 = require("./concessionaria");
-const veiculo_1 = require("./veiculo");
 const carro_1 = require("./carro");
 const moto_1 = require("./moto");
 const prompt_sync_1 = __importDefault(require("prompt-sync"));
@@ -117,9 +116,6 @@ function alterar() {
         let veiculo2 = new moto_1.Moto(id, modelo, ano, valorDeVenda, cilindradas);
         concessionaria.alterar(veiculo2);
     }
-    let veiculo;
-    veiculo = new veiculo_1.Veiculo(id, '0', 0, 0);
-    concessionaria.alterar(veiculo);
 }
 function excluir() {
     console.log("EXCLUIR CADASTRO DE VEÍCULO\n");

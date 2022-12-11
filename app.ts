@@ -154,11 +154,6 @@ function alterar(): void {
 
         concessionaria.alterar(veiculo2);
     }
-
-    let veiculo: Veiculo;
-
-    veiculo = new Veiculo(id, '0', 0, 0);
-    concessionaria.alterar(veiculo);
 }
 
 function excluir(): void{
