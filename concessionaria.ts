@@ -43,7 +43,7 @@ class Concessionaria {
 
     private validarNumeroId(id: number): number {
         if (typeof id != "number" || isNaN(id) || id <= 0 || id % 1 != 0) {
-            throw new NumeroInvalidoException("Formato de número inválido");
+            throw new NumeroInvalidoException("Número identificador inválido");
         }
 
         return id;

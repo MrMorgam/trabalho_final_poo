@@ -33,7 +33,7 @@ class Concessionaria {
     // Métodos de validação
     validarNumeroId(id) {
         if (typeof id != "number" || isNaN(id) || id <= 0 || id % 1 != 0) {
-            throw new execoes_1.NumeroInvalidoException("Formato de número inválido");
+            throw new execoes_1.NumeroInvalidoException("Número identificador inválido");
         }
         return id;
     }
