@@ -19,8 +19,8 @@ do {
     console.log("\nEscolha uma opção: \n");
     console.log("1 - Cadastrar\n2 - Consultar \n3 - Alterar" +  
                 "\n4 - Excluir\n5 - Dar baixa em estoque\n6 - Repor em estoque" +
-                "\n7 - Listar Veículos\n8 - Carregar Arquivos de Veículos\n" +
-                "\n\n0 - Sair e salvar\n");
+                "\n7 - Listar todos os veículos\n8 - Carregar arquivo de dados\n" +
+                "\n\n0 - Salvar e sair\n");
 
     opcao = input(">> ");
 
@@ -69,7 +69,7 @@ do {
         }
     }
 
-    console.log("")
+    console.log("");
     input("Operação finalizada. Pressione <enter>");
 } while (opcao != "0");
 
@@ -198,6 +198,10 @@ function repor(): void {
     concessionaria.repor(quantidade, id);
 }
 
+function listarVeiculos(): void {
+    console.log(concessionaria.listarVeiculos());
+}
+
 
 // Função para carregar lista de veículos em arquivo
 
@@ -236,13 +240,7 @@ function carregarArquivoDeTexto() {
                 break;
             }
         }
-    } catch (e: any){
+    } catch (e: any) {
         throw new ArquivoError("Falha ao ler veículos de arquivo");
     }
-}
-
-// Demais funções
-
-function listarVeiculos() {
-    console.log(concessionaria.listarVeiculos());
 }

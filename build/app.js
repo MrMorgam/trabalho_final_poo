@@ -20,8 +20,8 @@ do {
         console.log("\nEscolha uma opção: \n");
         console.log("1 - Cadastrar\n2 - Consultar \n3 - Alterar" +
             "\n4 - Excluir\n5 - Dar baixa em estoque\n6 - Repor em estoque" +
-            "\n7 - Listar Veículos\n8 - Carregar Arquivos de Veículos\n" +
-            "\n\n0 - Sair e salvar\n");
+            "\n7 - Listar todos os veículos\n8 - Carregar arquivo de dados\n" +
+            "\n\n0 - Salvar e sair\n");
         opcao = input(">> ");
         switch (opcao) {
             case "1":
@@ -156,6 +156,9 @@ function repor() {
     let quantidade = Number(input('Quantidade a repor: '));
     concessionaria.repor(quantidade, id);
 }
+function listarVeiculos() {
+    console.log(concessionaria.listarVeiculos());
+}
 // Função para carregar lista de veículos em arquivo
 function carregarArquivoDeTexto() {
     try {
@@ -199,8 +202,4 @@ function carregarArquivoDeTexto() {
     catch (e) {
         throw new execoes_1.ArquivoError("Falha ao ler veículos de arquivo");
     }
-}
-// Demais funções
-function listarVeiculos() {
-    console.log(concessionaria.listarVeiculos());
 }
