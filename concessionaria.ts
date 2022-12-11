@@ -1,4 +1,5 @@
 import { Veiculo } from "./veiculo";
+import { Tributavel } from "./interfaces";
 import { VeiculoInexistenteException, VeiculoJaCadastradoException,
          NumeroInvalidoException, AnoInvalidoException, 
          ValorDeVendaInvalidoException, NaoPossuiEstoqueException,
@@ -130,14 +131,8 @@ class Concessionaria {
     
         this._veiculos[indice].repor(quantidade);
     }
-
-    // Demais métodos
-    
-    public CalcularQuantidadeVeiculos(): number {
-        return this._veiculos.length;
-    }
      
-    public listarVeiculos(): string{
+    public listarVeiculos(): string {
          let listaVeiculos = '';
          for (let i: number = 0; i<this._veiculos.length; i++) {
             listaVeiculos = listaVeiculos + 
@@ -148,6 +143,16 @@ class Concessionaria {
             " | Quantidade em estoque: " + this._veiculos[i].quantidadeEmEstoque + "\n";
         }
         return listaVeiculos;
+    }
+
+    // Método de cálculo de impostos
+
+    public calcularIPVA(id: number): number {
+        let indice: number = this.consultarIndice(id);
+
+        let veiculo: Veiculo = this._veiculos[indice];
+
+        return (<Tributavel><unknown>veiculo).calcularIPVA(veiculo.valorDeVenda);
     }
 }
 

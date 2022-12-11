@@ -20,7 +20,8 @@ do {
         console.log("\nEscolha uma opção: \n");
         console.log("1 - Cadastrar\n2 - Consultar \n3 - Alterar" +
             "\n4 - Excluir\n5 - Dar baixa em estoque\n6 - Repor em estoque" +
-            "\n7 - Listar todos os veículos\n8 - Carregar arquivo de dados\n" +
+            "\n7 - Listar todos os veículos\n8 - Simular valor do IPVA para um veículo" +
+            "\n9 - Carregar arquivo de dados\n" +
             "\n\n0 - Salvar e sair\n");
         opcao = input(">> ");
         switch (opcao) {
@@ -54,6 +55,10 @@ do {
                 break;
             case "8":
                 console.clear();
+                calcularIPVA();
+                break;
+            case "9":
+                console.clear();
                 carregarArquivoDeTexto();
                 break;
             case "0":
@@ -79,7 +84,7 @@ function inserir() {
     console.log("1 - Carro\n2 - Moto\n");
     let tipoVeiculo = Number(input(">> "));
     console.log("");
-    let id = Number(input("Número identificador: "));
+    let id = Number(input("ID: "));
     let modelo = input("Modelo: ");
     let ano = Number(input("Ano: "));
     let valorDeVenda = Number(input("Valor de venda: "));
@@ -99,7 +104,7 @@ function inserir() {
 }
 function consultar() {
     console.log("CONSULTAR VEÍCULO\n");
-    const id = Number(input('Id do veículo: '));
+    const id = Number(input('ID: '));
     console.log("");
     let veiculo = concessionaria.consultar(id);
     console.log(`Número identificador: ${veiculo.id}`);
@@ -119,7 +124,7 @@ function consultar() {
 }
 function alterar() {
     console.log("ALTERAR CADASTRO DE VEÍCULO\n");
-    let id = Number(input('Id do veículo: '));
+    let id = Number(input('ID: '));
     let veiculo1 = concessionaria.consultar(id);
     let modelo = input("Modelo: ");
     let ano = Number(input("Ano: "));
@@ -140,24 +145,30 @@ function alterar() {
 }
 function excluir() {
     console.log("EXCLUIR CADASTRO DE VEÍCULO\n");
-    let id = Number(input('Id do veículo: '));
+    let id = Number(input('ID: '));
     concessionaria.excluir(id);
 }
 // Funções de estoque
 function darBaixa() {
     console.log("DAR BAIXA EM ESTOQUE\n");
-    let id = Number(input('Id do veículo: '));
+    let id = Number(input('ID: '));
     let quantidade = Number(input('Quantidade a dar baixa: '));
     concessionaria.darBaixa(quantidade, id);
 }
 function repor() {
     console.log("REPOR ESTOQUE\n");
-    let id = Number(input('Id do veículo: '));
+    let id = Number(input('ID: '));
     let quantidade = Number(input('Quantidade a repor: '));
     concessionaria.repor(quantidade, id);
 }
 function listarVeiculos() {
     console.log(concessionaria.listarVeiculos());
+}
+// Função para o cálculo de impostos
+function calcularIPVA() {
+    console.log("SIMULAR VALOR DO IPVA\n");
+    let id = Number(input('ID do veículo: '));
+    console.log(concessionaria.calcularIPVA(id));
 }
 // Função para carregar lista de veículos em arquivo
 function carregarArquivoDeTexto() {

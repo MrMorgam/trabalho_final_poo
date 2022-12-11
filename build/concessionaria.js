@@ -96,10 +96,6 @@ class Concessionaria {
         let indice = this.consultarIndice(id);
         this._veiculos[indice].repor(quantidade);
     }
-    // Demais métodos
-    CalcularQuantidadeVeiculos() {
-        return this._veiculos.length;
-    }
     listarVeiculos() {
         let listaVeiculos = '';
         for (let i = 0; i < this._veiculos.length; i++) {
@@ -111,6 +107,12 @@ class Concessionaria {
                 " | Quantidade em estoque: " + this._veiculos[i].quantidadeEmEstoque + "\n";
         }
         return listaVeiculos;
+    }
+    // Método de cálculo de impostos
+    calcularIPVA(id) {
+        let indice = this.consultarIndice(id);
+        let veiculo = this._veiculos[indice];
+        return veiculo.calcularIPVA(veiculo.valorDeVenda);
     }
 }
 exports.Concessionaria = Concessionaria;
