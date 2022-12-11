@@ -97,7 +97,6 @@ function inserir(): void {
     
 }
 
-
 function consultar(): void {
     console.log("CONSULTAR VEÍCULO\n");
     const id: number = Number(input('Id do veículo: '));

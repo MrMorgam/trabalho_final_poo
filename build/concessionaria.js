@@ -44,7 +44,7 @@ class Concessionaria {
     }
     validarValorDeVenda(valorDeVenda) {
         if (valorDeVenda <= 0) {
-            throw new execoes_1.valorDeVendaInvalidoException("Valor de venda inválido");
+            throw new execoes_1.ValorDeVendaInvalidoException("Valor de venda inválido");
         }
     }
     // Métodos de CRUD
@@ -79,16 +79,29 @@ class Concessionaria {
         this._veiculos.pop();
     }
     // Métodos de estoque
+    possuiEstoque(id) {
+        let veiculo = this.consultar(id);
+        return veiculo.quantidadeEmEstoque != 0;
+    }
     darBaixa(quantidade, id) {
+        if (!this.possuiEstoque(id)) {
+            throw new execoes_1.NaoPossuiEstoqueException("O veículo não possui estoque");
+        }
+        if (quantidade < 0 || quantidade % 1 != 0) {
+            throw new execoes_1.QuantidadeInvalidaException("Quantidade inválida");
+        }
         let indice = this.consultarIndice(id);
         this._veiculos[indice].darBaixa(quantidade);
     }
     repor(quantidade, id) {
+        if (quantidade < 0 || quantidade % 1 != 0) {
+            throw new execoes_1.QuantidadeInvalidaException("Quantidade inválida");
+        }
         let indice = this.consultarIndice(id);
         this._veiculos[indice].repor(quantidade);
     }
     // Demais métodos
-    CalcularquantidadeVeiculos() {
+    CalcularQuantidadeVeiculos() {
         return this._veiculos.length;
     }
     listaVeiculos() {

@@ -1,7 +1,8 @@
 import { Veiculo } from "./veiculo";
 import { VeiculoInexistenteException, VeiculoJaCadastradoException,
          NumeroInvalidoException, AnoInvalidoException, 
-         valorDeVendaInvalidoException } from "./execoes";
+         ValorDeVendaInvalidoException, NaoPossuiEstoqueException,
+         QuantidadeInvalidaException } from "./execoes";
 
 class Concessionaria {
     private _veiculos: Veiculo[] = [];
@@ -57,7 +58,7 @@ class Concessionaria {
 
     private validarValorDeVenda(valorDeVenda: number): void {
         if (valorDeVenda <= 0) {
-            throw new valorDeVendaInvalidoException("Valor de venda inválido");
+            throw new ValorDeVendaInvalidoException("Valor de venda inválido");
         }
     }
 
@@ -106,27 +107,43 @@ class Concessionaria {
 
     // Métodos de estoque
 
+    private possuiEstoque(id: number): boolean {
+        let veiculo: Veiculo = this.consultar(id);
+
+        return veiculo.quantidadeEmEstoque != 0;
+    }
+
     public darBaixa(quantidade: number, id: number): void {
+        if (!this.possuiEstoque(id)) {
+            throw new NaoPossuiEstoqueException("O veículo não possui estoque");
+        }
+
+        if (quantidade < 0 || quantidade % 1 != 0) {
+            throw new QuantidadeInvalidaException("Quantidade inválida")
+        }
+
         let indice = this.consultarIndice(id);
 
         this._veiculos[indice].darBaixa(quantidade);
     }
 
     public repor(quantidade: number, id: number): void {
+        if (quantidade < 0 || quantidade % 1 != 0) {
+            throw new QuantidadeInvalidaException("Quantidade inválida")
+        }
+        
         let indice = this.consultarIndice(id);
-
     
         this._veiculos[indice].repor(quantidade);
-        
     }
 
     // Demais métodos
     
-    public CalcularquantidadeVeiculos(): number {
+    public CalcularQuantidadeVeiculos(): number {
         return this._veiculos.length;
     }
      
-    listaVeiculos(): string{
+    public listaVeiculos(): string{
          let listaVeiculos = '';
          for(let i: number = 0; i<this._veiculos.length; i++){
             listaVeiculos = listaVeiculos + 

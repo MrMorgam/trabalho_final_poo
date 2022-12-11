@@ -28,7 +28,19 @@ class AnoInvalidoException extends Error {
     }
 }
 
-class valorDeVendaInvalidoException extends Error {
+class ValorDeVendaInvalidoException extends Error {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+class NaoPossuiEstoqueException extends Error {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+class QuantidadeInvalidaException extends Error {
     constructor(message: string) {
         super(message);
     }
@@ -37,4 +49,5 @@ class valorDeVendaInvalidoException extends Error {
 
 export { VeiculoJaCadastradoException, VeiculoInexistenteException, 
          NumeroInvalidoException, OpcaoInvalidaException, 
-         AnoInvalidoException, valorDeVendaInvalidoException }
+         AnoInvalidoException, ValorDeVendaInvalidoException,
+         NaoPossuiEstoqueException, QuantidadeInvalidaException }
