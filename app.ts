@@ -197,6 +197,9 @@ function repor(): void {
     concessionaria.repor(quantidade, id);
 }
 
+
+// Função para carregar lista de veículos em arquivo
+
 function carregarDeArquivo() {
     try{
         let LineReaderSync = require("line-reader-sync");
@@ -237,6 +240,8 @@ function carregarDeArquivo() {
     }
 }
 
+// Demais funções
+
 function listarVeiculos() {
-    console.log(concessionaria.listaVeiculos());
+    console.log(concessionaria.listarVeiculos());
 }

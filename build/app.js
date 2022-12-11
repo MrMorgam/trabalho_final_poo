@@ -4,6 +4,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const concessionaria_1 = require("./concessionaria");
+const veiculo_1 = require("./veiculo");
 const carro_1 = require("./carro");
 const moto_1 = require("./moto");
 const prompt_sync_1 = __importDefault(require("prompt-sync"));
@@ -12,40 +13,59 @@ const input = (0, prompt_sync_1.default)();
 let concessionaria = new concessionaria_1.Concessionaria();
 let opcao = '';
 do {
-    console.clear();
-    console.log("########## APP CONCESSIONÁRIA ##########");
-    console.log("\nEscolha uma opção: \n");
-    console.log("1 - Cadastrar\n2 - Consultar \n3 - Alterar" +
-        "\n4 - Excluir\n5 - Dar baixa em estoque\n6 - Repor em estoque" +
-        "\n\n0 - Sair e salvar\n");
-    opcao = input(">> ");
-    switch (opcao) {
-        case "1":
-            console.clear();
-            inserir();
-            break;
-        case "2":
-            console.clear();
-            consultar();
-            break;
-        case "3":
-            console.clear();
-            alterar();
-            break;
-        case "4":
-            console.clear();
-            excluir();
-            break;
-        case "5":
-            console.clear();
-            darBaixa();
-            break;
-        case "6":
-            console.clear();
-            repor();
-            break;
-        case "0":
-            break;
+    try {
+        console.clear();
+        console.log("########## APP CONCESSIONÁRIA ##########");
+        console.log("\nEscolha uma opção: \n");
+        console.log("1 - Cadastrar\n2 - Consultar \n3 - Alterar" +
+            "\n4 - Excluir\n5 - Dar baixa em estoque\n6 - Repor em estoque" +
+            "\n7 - Listar Veículos\n8 - Carregar Arquivos de Veículos\n" +
+            "\n\n0 - Sair e salvar\n");
+        opcao = input(">> ");
+        switch (opcao) {
+            case "1":
+                console.clear();
+                inserir();
+                break;
+            case "2":
+                console.clear();
+                consultar();
+                break;
+            case "3":
+                console.clear();
+                alterar();
+                break;
+            case "4":
+                console.clear();
+                excluir();
+                break;
+            case "5":
+                console.clear();
+                darBaixa();
+                break;
+            case "6":
+                console.clear();
+                repor();
+                break;
+            case "7":
+                console.clear();
+                listarVeiculos();
+                break;
+            case "8":
+                console.clear();
+                carregarDeArquivo();
+                break;
+            case "0":
+                break;
+        }
+    }
+    catch (e) {
+        if (e instanceof AplicacaoError) {
+            console.log(e.message);
+        }
+        else {
+            console.log("Erro inesperado");
+        }
     }
     console.log("");
     input("Operação finalizada. Pressione <enter>");
@@ -134,4 +154,52 @@ function repor() {
     let id = Number(input('Id do veículo: '));
     let quantidade = Number(input('Quantidade a repor: '));
     concessionaria.repor(quantidade, id);
+}
+// Função para carregar lista de veículos em arquivo
+function carregarDeArquivo() {
+    try {
+        let LineReaderSync = require("line-reader-sync");
+        let lrs = new LineReaderSync("./veiculos.txt");
+        console.log("Inicializando leitura de Arquivo");
+        while (true) {
+            let linha = lrs.readline();
+            if (linha != null) {
+                let array = linha.split(",");
+                let tipo = array[0];
+                let id = parseFloat(array[1]);
+                let modelo = array[2];
+                let ano = parseFloat(array[3]);
+                let valorDeVenda = parseFloat(array[4]);
+                let quantidadeEmEstoque = parseFloat(array[5]);
+                let veiculo;
+                if (tipo == 'V') {
+                    veiculo = new veiculo_1.Veiculo(id, modelo, ano, valorDeVenda);
+                }
+                else if (tipo == 'C') {
+                    let potenciaDoMotor = array[6];
+                    let tipoDeCombustivel = array[7];
+                    let tipoDeCambio = array[8];
+                    let tipoDeDirecao = array[9];
+                    veiculo = new carro_1.Carro(id, modelo, ano, valorDeVenda, potenciaDoMotor, tipoDeCombustivel, tipoDeCambio, tipoDeDirecao);
+                }
+                else if (tipo == 'M') {
+                    let cilindradas = parseFloat(array[10]);
+                    veiculo = new moto_1.Moto(id, modelo, ano, valorDeVenda, cilindradas);
+                }
+                concessionaria.inserir(veiculo);
+                console.log('Veículo lido: ' + veiculo.id);
+            }
+            else {
+                console.log("Fim do Arquivo");
+                break;
+            }
+        }
+    }
+    catch (e) {
+        throw new ArquivoError("Falha ao ler veículos de arquivo");
+    }
+}
+// Demais funções
+function listarVeiculos() {
+    console.log(concessionaria.listarVeiculos());
 }
