@@ -16,10 +16,9 @@ do {
     console.clear();
     console.log("########## APP CONCESSIONÁRIA ##########");
     console.log("\nEscolha uma opção: \n");
-    console.log("1 - Cadastrar \n2 - Consultar \n3 - Alterar" +
-        "\n4 - Excluir \n5 - Dar baixa \n6 - Repor " +
-        "\n7 - Total_Veiculos \n8 - Media_Veiculos" +
-        "\n\n0 - Sair\n");
+    console.log("1 - Cadastrar\n2 - Consultar \n3 - Alterar" +
+        "\n4 - Excluir\n5 - Dar baixa em estoque\n6 - Repor em estoque" +
+        "\n\n0 - Sair e salvar\n");
     opcao = input(">> ");
     switch (opcao) {
         case "1":
@@ -45,14 +44,6 @@ do {
         case "6":
             console.clear();
             repor();
-            break;
-        case "7":
-            console.clear();
-            totalVeiculos();
-            break;
-        case "8":
-            console.clear();
-            mediaVeiculos();
             break;
         case "0":
             break;
@@ -130,11 +121,4 @@ function repor() {
     let id = Number(input('Id do veículo: '));
     let quantidade = Number(input('Quantidade a repor: '));
     concessionaria.repor(quantidade, id);
-}
-// Demais funções
-function totalVeiculos() {
-    console.log(concessionaria.totalVeiculos());
-}
-function mediaVeiculos() {
-    console.log(concessionaria.mediaVeiculos());
 }

@@ -32,21 +32,29 @@ class Concessionaria {
     }
     // Métodos de validação
     validarNumeroId(id) {
-        if (typeof id != "number" || isNaN(id) || id == undefined) {
+        if (typeof id != "number" || isNaN(id) || id <= 0 || id % 1 != 0) {
             throw new execoes_1.NumeroInvalidoException("Formato de número inválido");
         }
-        if (id <= 0) {
-            throw new execoes_1.NumeroInvalidoException("O número identificador deve ser positivo");
-        }
-        if (id % 1 != 0) {
-            throw new execoes_1.NumeroInvalidoException("O número identificador deve ser inteiro");
-        }
         return id;
+    }
+    validarAno(ano) {
+        if ((ano < 0 && ano < 2999) || ano % 1 != 0) {
+            throw new execoes_1.AnoInvalidoException("Ano inválido");
+        }
+        return ano;
+    }
+    validarValorDeVenda(valorDeVenda) {
+        if (valorDeVenda <= 0) {
+            throw new execoes_1.valorDeVendaInvalidoException("Valor de venda inválido");
+        }
+        return valorDeVenda;
     }
     // Métodos de CRUD
     inserir(veiculo) {
         if (this.validarNumeroId(veiculo.id)) {
             let indiceVeiculoProcurado = this.consultarIndiceSemExcecao(veiculo.id);
+            this.validarAno(veiculo.ano);
+            this.validarValorDeVenda(veiculo.valorDeVenda);
             if (indiceVeiculoProcurado == -1) {
                 this._veiculos.push(veiculo);
             }
@@ -80,18 +88,20 @@ class Concessionaria {
         this._veiculos[indice].repor(quantidade);
     }
     // Demais métodos
-    quantVeiculos() {
+    CalcularquantidadeVeiculos() {
         return this._veiculos.length;
     }
-    totalVeiculos() {
-        let totVeiculos = 0;
-        for (let veiculo of this._veiculos) {
-            totVeiculos += veiculo.id;
+    listaVeiculos() {
+        let listaVeiculos = '';
+        for (let i = 0; i < this._veiculos.length; i++) {
+            listaVeiculos = listaVeiculos +
+                ' Id: ' + this._veiculos[i].id +
+                ' - Modelo: ' + this._veiculos[i].modelo +
+                ' - Ano: ' + this._veiculos[i].ano +
+                ' - Valor de Venda: ' + this._veiculos[i].valorDeVenda +
+                ' - Quantidade em Estoque: ' + this._veiculos[i].quantidadeEmEstoque + '\n';
         }
-        return totVeiculos;
-    }
-    mediaVeiculos() {
-        return this.totalVeiculos() / this.quantVeiculos();
+        return listaVeiculos;
     }
 }
 exports.Concessionaria = Concessionaria;
