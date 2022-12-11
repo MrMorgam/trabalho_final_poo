@@ -63,7 +63,7 @@ function inserir(): void {
     console.log("CADASTRAR VEÍCULO\n");
     console.log("Informe o tipo do veículo:\n");
     console.log("1 - Carro\n2 - Moto\n");
-    let opcaoVeiculo: number = Number(input(">> "));
+    let tipoVeiculo: number = Number(input(">> "));
     console.log("");
 
     let id: number = Number(input("Número identificador: "));
@@ -71,7 +71,7 @@ function inserir(): void {
     let ano: number = Number(input("Ano: "));
     let valorDeVenda: number = Number(input("Valor de venda: "));
 
-    if (opcaoVeiculo == 1) {
+    if (tipoVeiculo == 1) {
         let potenciaDoMotor: string = input("Potência do motor: ");
         let tipoDeCombustivel: string = input("Tipo de combustível: ");
         let tipoDeCambio: string = input("Tipo de câmbio: ");
@@ -86,7 +86,7 @@ function inserir(): void {
     }
 
 
-    if (opcaoVeiculo == 2) {
+    if (tipoVeiculo == 2) {
         let cilindradas: number = Number(input("Cilindradas: "));
 
         let veiculo: Moto = new Moto(id, modelo, ano, valorDeVenda, cilindradas);
@@ -125,6 +125,36 @@ function consultar(): void {
 function alterar(): void {
     console.log("ALTERAR CADASTRO DE VEÍCULO\n");
     let id: number = Number(input('Id do veículo: '));
+    
+    let veiculo1: Veiculo = concessionaria.consultar(id);
+
+    let modelo: string = input("Modelo: ");
+    let ano: number = Number(input("Ano: "));
+    let valorDeVenda: number = Number(input("Valor de venda: "));
+
+    if (veiculo1 instanceof Carro) {
+        let potenciaDoMotor: string = input("Potência do motor: ");
+        let tipoDeCombustivel: string = input("Tipo de combustível: ");
+        let tipoDeCambio: string = input("Tipo de câmbio: ");
+        let tipoDeDirecao: string = input("Tipo de direção: ");
+
+
+        let veiculo2: Carro = new Carro(id, modelo, ano, valorDeVenda, 
+                                       potenciaDoMotor, tipoDeCombustivel, 
+                                       tipoDeCambio, tipoDeDirecao);
+
+        concessionaria.alterar(veiculo2);
+    }
+
+
+    if (veiculo1 instanceof Carro) {
+        let cilindradas: number = Number(input("Cilindradas: "));
+
+        let veiculo2: Moto = new Moto(id, modelo, ano, valorDeVenda, cilindradas);
+
+        concessionaria.alterar(veiculo2);
+    }
+
     let veiculo: Veiculo;
 
     veiculo = new Veiculo(id, '0', 0, 0);
