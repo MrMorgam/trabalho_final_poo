@@ -50,7 +50,7 @@ class Concessionaria {
     }
 
     private validarAno(ano: number): void {
-        if ((ano <= 0 || ano >= 3000) || ano % 1 != 0) {
+        if (ano < 1 || ano > 2999 || ano % 1 != 0) {
             throw new AnoInvalidoException("Ano inválido");
         }
     }
