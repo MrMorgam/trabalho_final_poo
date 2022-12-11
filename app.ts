@@ -108,7 +108,6 @@ function consultar(): void {
     console.log(`Modelo: ${veiculo.modelo}`);
     console.log(`Ano: ${veiculo.ano}`);
     console.log(`Valor de venda: ${veiculo.valorDeVenda}`);
-    console.log(`Quantidade em estoque: ${veiculo.quantidadeEmEstoque}`);
 
     if (veiculo instanceof Carro) {
         console.log(`Potência do motor: ${veiculo.potenciaDoMotor}`);
@@ -120,6 +119,8 @@ function consultar(): void {
     if (veiculo instanceof Moto) {
         console.log(`Cilindradas: ${veiculo.cilindradas}`);
     }
+
+    console.log(`Quantidade em estoque: ${veiculo.quantidadeEmEstoque}`);
 }
 
 function alterar(): void {

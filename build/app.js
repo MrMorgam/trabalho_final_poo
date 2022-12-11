@@ -85,7 +85,6 @@ function consultar() {
     console.log(`Modelo: ${veiculo.modelo}`);
     console.log(`Ano: ${veiculo.ano}`);
     console.log(`Valor de venda: ${veiculo.valorDeVenda}`);
-    console.log(`Quantidade em estoque: ${veiculo.quantidadeEmEstoque}`);
     if (veiculo instanceof carro_1.Carro) {
         console.log(`Potência do motor: ${veiculo.potenciaDoMotor}`);
         console.log(`Tipo de combustível: ${veiculo.tipoDeCombustivel}`);
@@ -95,6 +94,7 @@ function consultar() {
     if (veiculo instanceof moto_1.Moto) {
         console.log(`Cilindradas: ${veiculo.cilindradas}`);
     }
+    console.log(`Quantidade em estoque: ${veiculo.quantidadeEmEstoque}`);
 }
 function alterar() {
     console.log("ALTERAR CADASTRO DE VEÍCULO\n");
