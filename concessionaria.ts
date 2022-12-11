@@ -1,6 +1,7 @@
 import { Veiculo } from "./veiculo";
 import { VeiculoInexistenteException, VeiculoJaCadastradoException,
-         NumeroInvalidoException} from "./execoes";
+         NumeroInvalidoException, AnoInvalidoException, 
+         valorDeVendaInvalidoException } from "./execoes";
 
 class Concessionaria {
     private _veiculos: Veiculo[] = [];
@@ -41,26 +42,37 @@ class Concessionaria {
     // Métodos de validação
 
     private validarNumeroId(id: number): number {
-        if (typeof id != "number" || isNaN(id) || id == undefined) {
+        if (typeof id != "number" || isNaN(id) || id <= 0 || id % 1 != 0) {
             throw new NumeroInvalidoException("Formato de número inválido");
         }
 
-        if (id <= 0) {
-            throw new NumeroInvalidoException("O número identificador deve ser positivo");
-        }
-
-        if (id % 1 != 0) {
-            throw new NumeroInvalidoException("O número identificador deve ser inteiro");
-        }
-
         return id;
+    }
+
+    private validarAno(ano: number): number {
+        if ((ano < 0 && ano < 2999) || ano % 1 != 0) {
+            throw new AnoInvalidoException("Ano inválido");
+        }
+
+        return ano;
+    }
+
+    private validarValorDeVenda(valorDeVenda: number): number {
+        if (valorDeVenda <= 0) {
+            throw new valorDeVendaInvalidoException("Valor de venda inválido");
+        }
+
+        return valorDeVenda;
     }
 
     // Métodos de CRUD
 
     public inserir(veiculo: Veiculo): void {
         if (this.validarNumeroId(veiculo.id)) {
-            let indiceVeiculoProcurado: number = this.consultarIndiceSemExcecao(veiculo.id);        
+            let indiceVeiculoProcurado: number = this.consultarIndiceSemExcecao(veiculo.id);
+            
+            this.validarAno(veiculo.ano);
+            this.validarValorDeVenda(veiculo.valorDeVenda);
 
             if (indiceVeiculoProcurado == -1) {
                 this._veiculos.push(veiculo);

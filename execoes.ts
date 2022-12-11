@@ -28,6 +28,13 @@ class AnoInvalidoException extends Error {
     }
 }
 
+class valorDeVendaInvalidoException extends Error {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
 
 export { VeiculoJaCadastradoException, VeiculoInexistenteException, 
-         NumeroInvalidoException, OpcaoInvalidaException }
+         NumeroInvalidoException, OpcaoInvalidaException, 
+         AnoInvalidoException, valorDeVendaInvalidoException }
