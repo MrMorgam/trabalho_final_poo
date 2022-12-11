@@ -2,6 +2,7 @@ import { Concessionaria } from "./concessionaria";
 import { Veiculo } from "./veiculo";
 import { Carro } from "./carro";
 import { Moto } from "./moto";
+import { AplicacaoError, ArquivoError } from "./execoes";
 import prompt from "prompt-sync";
 
 
