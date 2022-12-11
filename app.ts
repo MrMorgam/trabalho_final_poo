@@ -147,7 +147,7 @@ function alterar(): void {
     }
 
 
-    if (veiculo1 instanceof Carro) {
+    if (veiculo1 instanceof Moto) {
         let cilindradas: number = Number(input("Cilindradas: "));
 
         let veiculo2: Moto = new Moto(id, modelo, ano, valorDeVenda, cilindradas);

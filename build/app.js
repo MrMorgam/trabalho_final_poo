@@ -112,7 +112,7 @@ function alterar() {
         let veiculo2 = new carro_1.Carro(id, modelo, ano, valorDeVenda, potenciaDoMotor, tipoDeCombustivel, tipoDeCambio, tipoDeDirecao);
         concessionaria.alterar(veiculo2);
     }
-    if (veiculo1 instanceof carro_1.Carro) {
+    if (veiculo1 instanceof moto_1.Moto) {
         let cilindradas = Number(input("Cilindradas: "));
         let veiculo2 = new moto_1.Moto(id, modelo, ano, valorDeVenda, cilindradas);
         concessionaria.alterar(veiculo2);
