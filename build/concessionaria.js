@@ -38,16 +38,14 @@ class Concessionaria {
         return id;
     }
     validarAno(ano) {
-        if ((ano < 0 && ano < 2999) || ano % 1 != 0) {
+        if ((ano < 0 || ano > 2999) || ano % 1 != 0) {
             throw new execoes_1.AnoInvalidoException("Ano inválido");
         }
-        return ano;
     }
     validarValorDeVenda(valorDeVenda) {
         if (valorDeVenda <= 0) {
             throw new execoes_1.valorDeVendaInvalidoException("Valor de venda inválido");
         }
-        return valorDeVenda;
     }
     // Métodos de CRUD
     inserir(veiculo) {

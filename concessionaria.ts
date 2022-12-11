@@ -49,20 +49,16 @@ class Concessionaria {
         return id;
     }
 
-    private validarAno(ano: number): number {
-        if ((ano < 0 && ano < 2999) || ano % 1 != 0) {
+    private validarAno(ano: number): void {
+        if ((ano < 0 || ano > 2999) || ano % 1 != 0) {
             throw new AnoInvalidoException("Ano inválido");
         }
-
-        return ano;
     }
 
-    private validarValorDeVenda(valorDeVenda: number): number {
+    private validarValorDeVenda(valorDeVenda: number): void {
         if (valorDeVenda <= 0) {
             throw new valorDeVendaInvalidoException("Valor de venda inválido");
         }
-
-        return valorDeVenda;
     }
 
     // Métodos de CRUD
