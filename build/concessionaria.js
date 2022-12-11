@@ -87,7 +87,8 @@ class Concessionaria {
         if (!this.possuiEstoque(id)) {
             throw new execoes_1.NaoPossuiEstoqueException("O veículo não possui estoque");
         }
-        if (quantidade < 0 || quantidade % 1 != 0) {
+        if (quantidade < 0 || quantidade % 1 != 0 ||
+            this._veiculos[id].quantidadeEmEstoque - quantidade < 0) {
             throw new execoes_1.QuantidadeInvalidaException("Quantidade inválida");
         }
         let indice = this.consultarIndice(id);
