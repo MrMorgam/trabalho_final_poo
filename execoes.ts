@@ -52,7 +52,7 @@ class QuantidadeInvalidaException extends AplicacaoError {
     }
 }
 
-class ArquivoError extends Error {
+class ArquivoError extends AplicacaoError {
     constructor(message: string) {
         super(message);
     }

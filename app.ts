@@ -202,7 +202,7 @@ function repor(): void {
 // Função para carregar lista de veículos em arquivo
 
 function carregarArquivoDeTexto() {
-    try{
+    try {
         let LineReaderSync = require("line-reader-sync");
         let lrs = new LineReaderSync("./veiculos.txt");
         console.log("Inicializando leitura de Arquivo");

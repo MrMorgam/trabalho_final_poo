@@ -55,7 +55,7 @@ class QuantidadeInvalidaException extends AplicacaoError {
     }
 }
 exports.QuantidadeInvalidaException = QuantidadeInvalidaException;
-class ArquivoError extends Error {
+class ArquivoError extends AplicacaoError {
     constructor(message) {
         super(message);
     }
