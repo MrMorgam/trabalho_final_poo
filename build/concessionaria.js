@@ -38,7 +38,7 @@ class Concessionaria {
         return id;
     }
     validarAno(ano) {
-        if ((ano < 0 || ano > 2999) || ano % 1 != 0) {
+        if ((ano <= 0 || ano >= 3000) || ano % 1 != 0) {
             throw new execoes_1.AnoInvalidoException("Ano inválido");
         }
     }
@@ -50,9 +50,9 @@ class Concessionaria {
     // Métodos de CRUD
     inserir(veiculo) {
         if (this.validarNumeroId(veiculo.id)) {
-            let indiceVeiculoProcurado = this.consultarIndiceSemExcecao(veiculo.id);
             this.validarAno(veiculo.ano);
             this.validarValorDeVenda(veiculo.valorDeVenda);
+            let indiceVeiculoProcurado = this.consultarIndiceSemExcecao(veiculo.id);
             if (indiceVeiculoProcurado == -1) {
                 this._veiculos.push(veiculo);
             }
@@ -67,6 +67,8 @@ class Concessionaria {
     }
     alterar(veiculo) {
         let indice = this.consultarIndice(veiculo.id);
+        this.validarAno(veiculo.ano);
+        this.validarValorDeVenda(veiculo.valorDeVenda);
         this._veiculos[indice] = veiculo;
     }
     excluir(id) {

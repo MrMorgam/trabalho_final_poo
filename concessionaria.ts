@@ -50,7 +50,7 @@ class Concessionaria {
     }
 
     private validarAno(ano: number): void {
-        if ((ano < 0 || ano > 2999) || ano % 1 != 0) {
+        if ((ano <= 0 || ano >= 3000) || ano % 1 != 0) {
             throw new AnoInvalidoException("Ano inválido");
         }
     }
@@ -65,10 +65,10 @@ class Concessionaria {
 
     public inserir(veiculo: Veiculo): void {
         if (this.validarNumeroId(veiculo.id)) {
-            let indiceVeiculoProcurado: number = this.consultarIndiceSemExcecao(veiculo.id);
-            
             this.validarAno(veiculo.ano);
             this.validarValorDeVenda(veiculo.valorDeVenda);
+
+            let indiceVeiculoProcurado: number = this.consultarIndiceSemExcecao(veiculo.id);
 
             if (indiceVeiculoProcurado == -1) {
                 this._veiculos.push(veiculo);
@@ -87,6 +87,9 @@ class Concessionaria {
 
     public alterar(veiculo: Veiculo): void {
         let indice = this.consultarIndice(veiculo.id);
+
+        this.validarAno(veiculo.ano);
+        this.validarValorDeVenda(veiculo.valorDeVenda);
 
         this._veiculos[indice] = veiculo;
     }
