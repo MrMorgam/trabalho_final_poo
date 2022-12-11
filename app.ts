@@ -57,7 +57,7 @@ do {
             console.clear();
             carregarDeArquivo();
             break;
-         case "0":
+        case "0":
             break;
     }
     
