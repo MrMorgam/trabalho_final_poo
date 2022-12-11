@@ -1,52 +1,52 @@
-class VeiculoJaCadastradoException extends Error {
-    constructor(message: string) {
-        super(message);
-    }
-}
-
-class VeiculoInexistenteException extends Error {
-    constructor(message: string) {
-        super(message);
-    }
-}
-
-class NumeroInvalidoException extends Error {
-    constructor(message: string) {
-        super(message);
-    }
-}
-
-class OpcaoInvalidaException extends Error {
-    constructor(message: string) {
-        super(message);
-    }
-}
-
-class AnoInvalidoException extends Error {
-    constructor(message: string) {
-        super(message);
-    }
-}
-
-class ValorDeVendaInvalidoException extends Error {
-    constructor(message: string) {
-        super(message);
-    }
-}
-
-class NaoPossuiEstoqueException extends Error {
-    constructor(message: string) {
-        super(message);
-    }
-}
-
-class QuantidadeInvalidaException extends Error {
-    constructor(message: string) {
-        super(message);
-    }
-}
-
 class AplicacaoError extends Error {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+class VeiculoJaCadastradoException extends AplicacaoError {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+class VeiculoInexistenteException extends AplicacaoError {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+class NumeroInvalidoException extends AplicacaoError {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+class OpcaoInvalidaException extends AplicacaoError {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+class AnoInvalidoException extends AplicacaoError {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+class ValorDeVendaInvalidoException extends AplicacaoError {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+class NaoPossuiEstoqueException extends AplicacaoError {
+    constructor(message: string) {
+        super(message);
+    }
+}
+
+class QuantidadeInvalidaException extends AplicacaoError {
     constructor(message: string) {
         super(message);
     }

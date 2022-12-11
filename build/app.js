@@ -7,6 +7,7 @@ const concessionaria_1 = require("./concessionaria");
 const veiculo_1 = require("./veiculo");
 const carro_1 = require("./carro");
 const moto_1 = require("./moto");
+const execoes_1 = require("./execoes");
 const prompt_sync_1 = __importDefault(require("prompt-sync"));
 // Aplicação
 const input = (0, prompt_sync_1.default)();
@@ -60,11 +61,11 @@ do {
         }
     }
     catch (e) {
-        if (e instanceof AplicacaoError) {
+        if (e instanceof execoes_1.AplicacaoError) {
             console.log(e.message);
         }
         else {
-            console.log("Erro inesperado");
+            console.log("Erro inesperado. Contate o administrador do sistema.");
         }
     }
     console.log("");
@@ -196,7 +197,7 @@ function carregarDeArquivo() {
         }
     }
     catch (e) {
-        throw new ArquivoError("Falha ao ler veículos de arquivo");
+        throw new execoes_1.ArquivoError("Falha ao ler veículos de arquivo");
     }
 }
 // Demais funções

@@ -65,7 +65,7 @@ do {
         if(e instanceof AplicacaoError){
             console.log(e.message);
         } else {
-            console.log("Erro inesperado");
+            console.log("Erro inesperado. Contate o administrador do sistema.");
         }
     }
 
