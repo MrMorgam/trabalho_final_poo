@@ -107,19 +107,12 @@ class Concessionaria {
 
     // Métodos de estoque
 
-    private possuiEstoque(id: number): boolean {
-        let veiculo: Veiculo = this.consultar(id);
-
-        return veiculo.quantidadeEmEstoque != 0;
-    }
-
     public darBaixa(quantidade: number, id: number): void {
-        if (!this.possuiEstoque(id)) {
-            throw new NaoPossuiEstoqueException("O veículo não possui estoque");
+        if (this.consultar(id).quantidadeEmEstoque - quantidade < 0) {
+            throw new NaoPossuiEstoqueException("O veículo não possui estoque suficiente");
         }
 
-        if (quantidade < 0 || quantidade % 1 != 0 || 
-            this._veiculos[id].quantidadeEmEstoque - quantidade < 0) {
+        if (quantidade < 0 || quantidade % 1 != 0) {
             throw new QuantidadeInvalidaException("Quantidade inválida")
         }
 
@@ -144,7 +137,7 @@ class Concessionaria {
         return this._veiculos.length;
     }
      
-    public listaVeiculos(): string{
+    public listarVeiculos(): string{
          let listaVeiculos = '';
          for(let i: number = 0; i<this._veiculos.length; i++){
             listaVeiculos = listaVeiculos + 

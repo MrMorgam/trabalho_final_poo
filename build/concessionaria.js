@@ -79,16 +79,11 @@ class Concessionaria {
         this._veiculos.pop();
     }
     // Métodos de estoque
-    possuiEstoque(id) {
-        let veiculo = this.consultar(id);
-        return veiculo.quantidadeEmEstoque != 0;
-    }
     darBaixa(quantidade, id) {
-        if (!this.possuiEstoque(id)) {
-            throw new execoes_1.NaoPossuiEstoqueException("O veículo não possui estoque");
+        if (this.consultar(id).quantidadeEmEstoque - quantidade < 0) {
+            throw new execoes_1.NaoPossuiEstoqueException("O veículo não possui estoque suficiente");
         }
-        if (quantidade < 0 || quantidade % 1 != 0 ||
-            this._veiculos[id].quantidadeEmEstoque - quantidade < 0) {
+        if (quantidade < 0 || quantidade % 1 != 0) {
             throw new execoes_1.QuantidadeInvalidaException("Quantidade inválida");
         }
         let indice = this.consultarIndice(id);
@@ -105,7 +100,7 @@ class Concessionaria {
     CalcularQuantidadeVeiculos() {
         return this._veiculos.length;
     }
-    listaVeiculos() {
+    listarVeiculos() {
         let listaVeiculos = '';
         for (let i = 0; i < this._veiculos.length; i++) {
             listaVeiculos = listaVeiculos +
