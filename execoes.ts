@@ -46,8 +46,20 @@ class QuantidadeInvalidaException extends Error {
     }
 }
 
+class AplicacaoError extends Error{
+    constructor(message: string){
+        super(message);
+    }
+}
+
+class ArquivoError extends Error{
+    constructor(message: string){
+        super(message);
+    }
+}
+
 
 export { VeiculoJaCadastradoException, VeiculoInexistenteException, 
          NumeroInvalidoException, OpcaoInvalidaException, 
          AnoInvalidoException, ValorDeVendaInvalidoException,
-         NaoPossuiEstoqueException, QuantidadeInvalidaException }
+         NaoPossuiEstoqueException, QuantidadeInvalidaException, AplicacaoError, ArquivoError }
