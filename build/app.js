@@ -54,7 +54,7 @@ do {
                 break;
             case "8":
                 console.clear();
-                carregarDeArquivo();
+                carregarArquivoDeTexto();
                 break;
             case "0":
                 break;
@@ -157,7 +157,7 @@ function repor() {
     concessionaria.repor(quantidade, id);
 }
 // Função para carregar lista de veículos em arquivo
-function carregarDeArquivo() {
+function carregarArquivoDeTexto() {
     try {
         let LineReaderSync = require("line-reader-sync");
         let lrs = new LineReaderSync("./veiculos.txt");
