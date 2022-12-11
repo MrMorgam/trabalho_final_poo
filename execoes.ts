@@ -46,13 +46,13 @@ class QuantidadeInvalidaException extends Error {
     }
 }
 
-class AplicacaoError extends Error{
+class AplicacaoError extends Error {
     constructor(message: string){
         super(message);
     }
 }
 
-class ArquivoError extends Error{
+class ArquivoError extends Error {
     constructor(message: string){
         super(message);
     }

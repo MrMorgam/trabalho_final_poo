@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.QuantidadeInvalidaException = exports.NaoPossuiEstoqueException = exports.ValorDeVendaInvalidoException = exports.AnoInvalidoException = exports.OpcaoInvalidaException = exports.NumeroInvalidoException = exports.VeiculoInexistenteException = exports.VeiculoJaCadastradoException = void 0;
+exports.ArquivoError = exports.AplicacaoError = exports.QuantidadeInvalidaException = exports.NaoPossuiEstoqueException = exports.ValorDeVendaInvalidoException = exports.AnoInvalidoException = exports.OpcaoInvalidaException = exports.NumeroInvalidoException = exports.VeiculoInexistenteException = exports.VeiculoJaCadastradoException = void 0;
 class VeiculoJaCadastradoException extends Error {
     constructor(message) {
         super(message);
@@ -49,3 +49,15 @@ class QuantidadeInvalidaException extends Error {
     }
 }
 exports.QuantidadeInvalidaException = QuantidadeInvalidaException;
+class AplicacaoError extends Error {
+    constructor(message) {
+        super(message);
+    }
+}
+exports.AplicacaoError = AplicacaoError;
+class ArquivoError extends Error {
+    constructor(message) {
+        super(message);
+    }
+}
+exports.ArquivoError = ArquivoError;
