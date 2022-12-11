@@ -123,22 +123,21 @@ class Concessionaria {
 
     // Demais métodos
     
-    public quantVeiculos(): number {
+    public CalcularquantidadeVeiculos(): number {
         return this._veiculos.length;
     }
-    
-    public totalVeiculos(): number {
-        let totVeiculos: number = 0;
-
-        for(let veiculo of this._veiculos) {
-            totVeiculos += veiculo.id;
+     
+    listaVeiculos(): string{
+         let listaVeiculos = '';
+         for(let i: number = 0; i<this._veiculos.length; i++){
+            listaVeiculos = listaVeiculos + 
+            ' Id: ' + this._veiculos[i].id +
+            ' - Modelo: ' + this._veiculos[i].modelo +
+            ' - Ano: ' + this._veiculos[i].ano +
+            ' - Valor de Venda: ' + this._veiculos[i].valorDeVenda +
+            ' - Quantidade em Estoque: ' + this._veiculos[i].quantidadeEmEstoque + '\n';
         }
-
-        return totVeiculos;
-    }
-
-    public mediaVeiculos(): number {
-        return this.totalVeiculos() / this.quantVeiculos();
+        return listaVeiculos;
     }
 }
 
