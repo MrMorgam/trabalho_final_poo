@@ -12,11 +12,13 @@ let concessionaria: Concessionaria = new Concessionaria();
 let opcao: string = '';
 
 do {
+    try{
     console.clear();
     console.log("########## APP CONCESSIONÁRIA ##########");
     console.log("\nEscolha uma opção: \n");
     console.log("1 - Cadastrar\n2 - Consultar \n3 - Alterar" +  
                 "\n4 - Excluir\n5 - Dar baixa em estoque\n6 - Repor em estoque" +
+                "\n7 - Listar Veículos\n8 - Carregar Arquivos de Veículos\n" +
                 "\n\n0 - Sair e salvar\n");
 
     opcao = input(">> ");
@@ -46,8 +48,24 @@ do {
             console.clear();
             repor();
             break;
-        case "0":
+        case "7":
+            console.clear();
+            listarVeiculos();
             break;
+        case "8":
+            console.clear();
+            carregarDeArquivo();
+            break;
+         case "0":
+            break;
+    }
+    
+    } catch (e: any){
+        if(e instanceof AplicacaoError){
+            console.log(e.message);
+        } else {
+            console.log("Erro inesperado");
+        }
     }
 
     console.log("")
@@ -177,4 +195,48 @@ function repor(): void {
     let id: number = Number(input('Id do veículo: '));
     let quantidade: number = Number(input('Quantidade a repor: '));
     concessionaria.repor(quantidade, id);
+}
+
+function carregarDeArquivo() {
+    try{
+        let LineReaderSync = require("line-reader-sync");
+        let lrs = new LineReaderSync("./veiculos.txt");
+        console.log("Inicializando leitura de Arquivo");
+        while(true){
+            let linha: string = lrs.readline();
+            if(linha != null){
+                let array: string[] = linha.split(",");
+                let tipo: string = array[0];
+                let id: number = parseFloat(array[1]);
+                let modelo: string = array[2];
+                let ano: number = parseFloat(array[3]);
+                let valorDeVenda: number = parseFloat(array[4]);
+                let quantidadeEmEstoque: number = parseFloat(array[5]);
+                let veiculo!: Veiculo;
+                if(tipo == 'V'){
+                    veiculo = new Veiculo(id,modelo,ano,valorDeVenda);
+                } else if (tipo == 'C') {
+                    let potenciaDoMotor: string = array[6];
+                    let tipoDeCombustivel: string = array[7];
+                    let tipoDeCambio: string = array[8];
+                    let tipoDeDirecao: string = array[9];
+                    veiculo = new Carro(id,modelo,ano,valorDeVenda,potenciaDoMotor,tipoDeCombustivel,tipoDeCambio,tipoDeDirecao);
+                } else if (tipo == 'M') {
+                    let cilindradas: number = parseFloat(array[10]);
+                    veiculo = new Moto(id,modelo,ano,valorDeVenda,cilindradas);
+                }
+                concessionaria.inserir(veiculo);
+                console.log('Veículo lido: ' + veiculo.id);
+            } else {
+                console.log("Fim do Arquivo")
+                break;
+            }
+        }
+    } catch (e: any){
+        throw new ArquivoError("Falha ao ler veículos de arquivo");
+    }
+}
+
+function listarVeiculos() {
+    console.log(concessionaria.listaVeiculos());
 }
