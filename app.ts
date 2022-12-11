@@ -214,9 +214,9 @@ function listarVeiculos(): void {
 
 function calcularIPVA(): void {
     console.log("SIMULAR VALOR DO IPVA\n");
-    let id: number = Number(input('ID do veículo: '));
+    let id: number = Number(input('ID: '));
 
-    console.log(concessionaria.calcularIPVA(id));
+    console.log(`R$ ${concessionaria.calcularIPVA(id)}`);
 }
 
 
