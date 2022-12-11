@@ -4,6 +4,7 @@ import { Carro } from "./carro";
 import { Moto } from "./moto";
 import { AplicacaoError, ArquivoError } from "./execoes";
 import prompt from "prompt-sync";
+import { readFileSync } from "fs";
 
 
 // Aplicação
