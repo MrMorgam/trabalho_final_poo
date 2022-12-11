@@ -210,9 +210,9 @@ function carregarArquivoDeTexto() {
         let LineReaderSync = require("line-reader-sync");
         let lrs = new LineReaderSync("./veiculos.txt");
         console.log("Inicializando leitura de Arquivo");
-        while(true){
+        while (true) {
             let linha: string = lrs.readline();
-            if(linha != null){
+            if (linha != null) {
                 let array: string[] = linha.split(",");
                 let tipo: string = array[0];
                 let id: number = parseFloat(array[1]);
@@ -221,7 +221,7 @@ function carregarArquivoDeTexto() {
                 let valorDeVenda: number = parseFloat(array[4]);
                 let quantidadeEmEstoque: number = parseFloat(array[5]);
                 let veiculo!: Veiculo;
-                if(tipo == 'V'){
+                if (tipo == 'V') {
                     veiculo = new Veiculo(id,modelo,ano,valorDeVenda);
                 } else if (tipo == 'C') {
                     let potenciaDoMotor: string = array[6];

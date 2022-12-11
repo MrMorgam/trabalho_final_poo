@@ -104,11 +104,11 @@ class Concessionaria {
         let listaVeiculos = '';
         for (let i = 0; i < this._veiculos.length; i++) {
             listaVeiculos = listaVeiculos +
-                ' Id: ' + this._veiculos[i].id +
-                ' - Modelo: ' + this._veiculos[i].modelo +
-                ' - Ano: ' + this._veiculos[i].ano +
-                ' - Valor de Venda: ' + this._veiculos[i].valorDeVenda +
-                ' - Quantidade em Estoque: ' + this._veiculos[i].quantidadeEmEstoque + '\n';
+                "ID: " + this._veiculos[i].id +
+                " | Modelo: " + this._veiculos[i].modelo +
+                " | Ano: " + this._veiculos[i].ano +
+                " | Valor de venda: " + this._veiculos[i].valorDeVenda +
+                " | Quantidade em estoque: " + this._veiculos[i].quantidadeEmEstoque + "\n";
         }
         return listaVeiculos;
     }
