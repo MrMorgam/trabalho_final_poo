@@ -3,6 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Carro = void 0;
 const veiculo_1 = require("./veiculo");
 class Carro extends veiculo_1.Veiculo {
+    _potenciaDoMotor;
+    _tipoDeCombustivel;
+    _tipoDeCambio;
+    _tipoDeDirecao;
     constructor(id, modelo, ano, valorDeVenda, potenciaDoMotor, tipoDeCombustivel, tipoDeCambio, tipoDeDirecao) {
         super(id, modelo, ano, valorDeVenda);
         this._potenciaDoMotor = potenciaDoMotor;

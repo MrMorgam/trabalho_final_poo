@@ -3,9 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Concessionaria = void 0;
 const execoes_1 = require("./execoes");
 class Concessionaria {
-    constructor() {
-        this._veiculos = [];
-    }
+    _veiculos = [];
     // Método para consultar índice
     consultarIndice(id) {
         let indice = -1;

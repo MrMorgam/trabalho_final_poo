@@ -2,6 +2,12 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Veiculo = void 0;
 class Veiculo {
+    // Atributos
+    _id;
+    _modelo;
+    _ano;
+    _valorDeVenda;
+    _quantidadeEmEstoque;
     // Construtor
     constructor(id, modelo, ano, valorDeVenda) {
         this._id = id;
