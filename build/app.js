@@ -27,7 +27,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const concessionaria_1 = require("./concessionaria");
-const veiculo_1 = require("./veiculo");
 const carro_1 = require("./carro");
 const moto_1 = require("./moto");
 const execoes_1 = require("./execoes");
@@ -198,8 +197,8 @@ function calcularIPVA() {
 // Função para carregar lista de veículos em arquivo
 function carregarArquivoDeTexto() {
     console.log("Iniciando leitura de arquivo...\n");
-    let contentFilePath = "./veiculos.txt";
-    let veiculos = fs.readFileSync(contentFilePath, "utf8").toString().split("\n");
+    let enderecoDoArquivo = "./veiculos.txt";
+    let veiculos = fs.readFileSync(enderecoDoArquivo, "utf8").toString().split("\n");
     for (let veiculo of veiculos) {
         let dadosArquivo = veiculo.split(",");
         let tipo = Number(dadosArquivo[0]);
@@ -215,13 +214,9 @@ function carregarArquivoDeTexto() {
             let novoVeiculo = new carro_1.Carro(id, modelo, ano, valorDeVenda, potenciaDoMotor, tipoDeCombustivel, tipoDeCambio, tipoDeDirecao);
             concessionaria.inserir(novoVeiculo);
         }
-        else if (tipo == 2) {
+        if (tipo == 2) {
             let cilindradas = Number(dadosArquivo[5]);
             let novoVeiculo = new moto_1.Moto(id, modelo, ano, valorDeVenda, cilindradas);
-            concessionaria.inserir(novoVeiculo);
-        }
-        else {
-            let novoVeiculo = new veiculo_1.Veiculo(id, modelo, ano, valorDeVenda);
             concessionaria.inserir(novoVeiculo);
         }
     }

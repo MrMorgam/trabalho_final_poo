@@ -1,3 +1,2 @@
-0,1,Fiat Uno,2015,50000
-1,2,Hyundai HB20,2020,75000,1.0,flex,automatico,hidraulica
-2,3,Honda XRE 300,2022,18000,200
+1,1,Hyundai HB20,2020,70000,1.0,flex,manual,hidraulica
+2,2,Honda XRE 300,2022,18000,290

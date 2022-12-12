@@ -155,6 +155,7 @@ class Concessionaria {
         let veiculo: Veiculo = this._veiculos[indice];
 
         return (<Tributavel><unknown>veiculo).calcularIPVA(veiculo.valorDeVenda);
+    
     }
 }
 

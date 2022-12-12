@@ -14,63 +14,62 @@ let concessionaria: Concessionaria = new Concessionaria();
 let opcao: string = '';
 
 do {
-    try{
-    console.clear();
-    console.log("########## APP CONCESSIONÁRIA ##########");
-    console.log("\nEscolha uma opção: \n");
-    console.log("1 - Cadastrar\n2 - Consultar \n3 - Alterar" +  
-                "\n4 - Excluir\n5 - Dar baixa em estoque\n6 - Repor em estoque" +
-                "\n7 - Listar todos os veículos\n8 - Simular valor do IPVA para um veículo" +
-                "\n9 - Carregar arquivo de dados\n" +
-                "\n\n0 - Salvar e sair\n");
+    try {
+        console.clear();
+        console.log("########## APP CONCESSIONÁRIA ##########");
+        console.log("\nEscolha uma opção: \n");
+        console.log("1 - Cadastrar\n2 - Consultar \n3 - Alterar" +  
+                    "\n4 - Excluir\n5 - Dar baixa em estoque\n6 - Repor em estoque" +
+                    "\n7 - Listar todos os veículos\n8 - Simular valor do IPVA para um veículo" +
+                    "\n9 - Carregar arquivo de dados\n" +
+                    "\n\n0 - Salvar e sair\n");
 
-    opcao = input(">> ");
+        opcao = input(">> ");
 
-    switch(opcao) {
-        case "1":
-            console.clear();
-            inserir();
-            break;
-        case "2":
-            console.clear();
-            consultar();
-            break;
-        case "3":
-            console.clear();
-            alterar();
-            break;
-        case "4":
-            console.clear();
-            excluir();
-            break;
-        case "5":
-            console.clear();
-            darBaixa();
-            break;
-        case "6":
-            console.clear();
-            repor();
-            break;
-        case "7":
-            console.clear();
-            listarVeiculos();
-            break;
-        case "8":
-            console.clear();
-            calcularIPVA();
-            break;
-        case "9":
-            console.clear();
-            carregarArquivoDeTexto();
-            break;
-        case "0":
-            break;
-    }
-    
+        switch(opcao) {
+            case "1":
+                console.clear();
+                inserir();
+                break;
+            case "2":
+                console.clear();
+                consultar();
+                break;
+            case "3":
+                console.clear();
+                alterar();
+                break;
+            case "4":
+                console.clear();
+                excluir();
+                break;
+            case "5":
+                console.clear();
+                darBaixa();
+                break;
+            case "6":
+                console.clear();
+                repor();
+                break;
+            case "7":
+                console.clear();
+                listarVeiculos();
+                break;
+            case "8":
+                console.clear();
+                calcularIPVA();
+                break;
+            case "9":
+                console.clear();
+                carregarArquivoDeTexto();
+                break;
+            case "0":
+                break;
+        }
     } catch (e: any) {
         console.log("")
 
-        if(e instanceof AplicacaoError){
+        if (e instanceof AplicacaoError) {
             console.log(e.message);
         } else {
             console.log("Erro inesperado: contate o administrador do sistema.");
@@ -226,8 +225,8 @@ function calcularIPVA(): void {
 function carregarArquivoDeTexto() {
     console.log("Iniciando leitura de arquivo...\n");
 
-    let contentFilePath: string = "./veiculos.txt";
-    let veiculos: string[] = fs.readFileSync(contentFilePath, "utf8").toString().split("\n");
+    let enderecoDoArquivo: string = "./veiculos.txt";
+    let veiculos: string[] = fs.readFileSync(enderecoDoArquivo, "utf8").toString().split("\n");
 
     for (let veiculo of veiculos) {
         let dadosArquivo: string[] = veiculo.split(",");
@@ -246,14 +245,12 @@ function carregarArquivoDeTexto() {
 
             let novoVeiculo: Carro = new Carro(id,modelo,ano,valorDeVenda,potenciaDoMotor,tipoDeCombustivel,tipoDeCambio,tipoDeDirecao);
             concessionaria.inserir(novoVeiculo);
-        } else if (tipo == 2) {
+        } 
+        
+        if (tipo == 2) {
             let cilindradas: number = Number(dadosArquivo[5]);
 
             let novoVeiculo: Moto = new Moto(id,modelo,ano,valorDeVenda,cilindradas);
-            concessionaria.inserir(novoVeiculo);
-        } else {
-            let novoVeiculo: Veiculo  = new Veiculo(id,modelo,ano,valorDeVenda);
-
             concessionaria.inserir(novoVeiculo);
         }
     }
