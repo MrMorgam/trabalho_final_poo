@@ -226,18 +226,23 @@ function carregarArquivoDeTexto() {
     console.log("Iniciando leitura de arquivo...\n");
 
     let enderecoDoArquivo: string = "./veiculos.txt";
-    let veiculos: string[] = fs.readFileSync(enderecoDoArquivo, "utf8").toString().split("\n");
+    let arquivo: string = fs.readFileSync(enderecoDoArquivo, { encoding: 'utf8', flag: 'r' });
+    console.log("Arquivo carregado");
+    
+    let veiculos: string[] = arquivo.split("\n");
 
-    for (let veiculo of veiculos) {
-        let dadosArquivo: string[] = veiculo.split(",");
+    for (let i = 0; i < veiculos.length; i++) {
+        let dadosArquivo: string[] = veiculos[i].split(",");
 
         let tipo: number = Number(dadosArquivo[0]);
-        let id: number = Number(dadosArquivo[1]);
-        let modelo: string = dadosArquivo[2];
-        let ano: number = Number(dadosArquivo[3]);
-        let valorDeVenda: number = Number(dadosArquivo[4]);
+        
+        console.log(tipo);
 
         if (tipo == 1) {
+            let id: number = Number(dadosArquivo[1]);
+            let modelo: string = dadosArquivo[2];
+            let ano: number = Number(dadosArquivo[3]);
+            let valorDeVenda: number = Number(dadosArquivo[4]);
             let potenciaDoMotor: string = dadosArquivo[5];
             let tipoDeCombustivel: string = dadosArquivo[6];
             let tipoDeCambio: string = dadosArquivo[7];
@@ -248,6 +253,10 @@ function carregarArquivoDeTexto() {
         } 
         
         if (tipo == 2) {
+            let id: number = Number(dadosArquivo[1]);
+            let modelo: string = dadosArquivo[2];
+            let ano: number = Number(dadosArquivo[3]);
+            let valorDeVenda: number = Number(dadosArquivo[4]);
             let cilindradas: number = Number(dadosArquivo[5]);
 
             let novoVeiculo: Moto = new Moto(id,modelo,ano,valorDeVenda,cilindradas);

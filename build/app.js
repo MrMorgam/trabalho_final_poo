@@ -198,15 +198,18 @@ function calcularIPVA() {
 function carregarArquivoDeTexto() {
     console.log("Iniciando leitura de arquivo...\n");
     let enderecoDoArquivo = "./veiculos.txt";
-    let veiculos = fs.readFileSync(enderecoDoArquivo, "utf8").toString().split("\n");
-    for (let veiculo of veiculos) {
-        let dadosArquivo = veiculo.split(",");
+    let arquivo = fs.readFileSync(enderecoDoArquivo, { encoding: 'utf8', flag: 'r' });
+    console.log("Arquivo carregado");
+    let veiculos = arquivo.split("\n");
+    for (let i = 0; i < veiculos.length; i++) {
+        let dadosArquivo = veiculos[i].split(",");
         let tipo = Number(dadosArquivo[0]);
-        let id = Number(dadosArquivo[1]);
-        let modelo = dadosArquivo[2];
-        let ano = Number(dadosArquivo[3]);
-        let valorDeVenda = Number(dadosArquivo[4]);
+        console.log(tipo);
         if (tipo == 1) {
+            let id = Number(dadosArquivo[1]);
+            let modelo = dadosArquivo[2];
+            let ano = Number(dadosArquivo[3]);
+            let valorDeVenda = Number(dadosArquivo[4]);
             let potenciaDoMotor = dadosArquivo[5];
             let tipoDeCombustivel = dadosArquivo[6];
             let tipoDeCambio = dadosArquivo[7];
@@ -215,6 +218,10 @@ function carregarArquivoDeTexto() {
             concessionaria.inserir(novoVeiculo);
         }
         if (tipo == 2) {
+            let id = Number(dadosArquivo[1]);
+            let modelo = dadosArquivo[2];
+            let ano = Number(dadosArquivo[3]);
+            let valorDeVenda = Number(dadosArquivo[4]);
             let cilindradas = Number(dadosArquivo[5]);
             let novoVeiculo = new moto_1.Moto(id, modelo, ano, valorDeVenda, cilindradas);
             concessionaria.inserir(novoVeiculo);
