@@ -4,7 +4,7 @@ import { Carro } from "./carro";
 import { Moto } from "./moto";
 import { AplicacaoError, ArquivoError } from "./execoes";
 import prompt from "prompt-sync";
-import { readFileSync } from "fs";
+import * as fs from "fs";
 
 
 // Aplicação
@@ -225,40 +225,28 @@ function calcularIPVA(): void {
 
 function carregarArquivoDeTexto() {
     try {
-        let LineReaderSync = require("line-reader-sync");
-        let lrs = new LineReaderSync("./veiculos.txt");
-        console.log("Inicializando leitura de Arquivo");
-        while (true) {
-            let linha: string = lrs.readline();
-            if (linha != null) {
-                let array: string[] = linha.split(",");
-                let tipo: string = array[0];
-                let id: number = parseFloat(array[1]);
-                let modelo: string = array[2];
-                let ano: number = parseFloat(array[3]);
-                let valorDeVenda: number = parseFloat(array[4]);
-                let quantidadeEmEstoque: number = parseFloat(array[5]);
-                let veiculo!: Veiculo;
-                if (tipo == 'V') {
-                    veiculo = new Veiculo(id,modelo,ano,valorDeVenda);
-                } else if (tipo == 'C') {
-                    let potenciaDoMotor: string = array[6];
-                    let tipoDeCombustivel: string = array[7];
-                    let tipoDeCambio: string = array[8];
-                    let tipoDeDirecao: string = array[9];
-                    veiculo = new Carro(id,modelo,ano,valorDeVenda,potenciaDoMotor,tipoDeCombustivel,tipoDeCambio,tipoDeDirecao);
+        let veiculos: Array<String> = fs.readFileSync('./veiculos.txt').toString().split(',');
+        for(let veiculo of veiculos){
+            let dadosArquivo = veiculo.split(',');
+            let[tipo, id, modelo,ano,valorDeVenda,quantidadeEmEstoque]: string[] = dadosArquivo;
+
+            let conjVeiculos!: Veiculo;
+
+            if (tipo == 'C') {
+                let [potenciaDoMotor]: string[] = dadosArquivo;
+                let [tipoDeCombustivel]: string[] = dadosArquivo;
+                let [tipoDeCambio]: string[] = dadosArquivo;
+                let [tipoDeDirecao]: string[] = dadosArquivo;
+                conjVeiculos = new Carro(Number(id),modelo,Number(ano),Number(valorDeVenda),potenciaDoMotor,tipoDeCombustivel,tipoDeCambio,tipoDeDirecao);
                 } else if (tipo == 'M') {
-                    let cilindradas: number = parseFloat(array[10]);
-                    veiculo = new Moto(id,modelo,ano,valorDeVenda,cilindradas);
+                    let [cilindradas]: string[] = dados;
+                    conjVeiculos = new Moto(Number(id),modelo,Number(ano),Number(valorDeVenda),Number(cilindradas));
+                } else {
+                    conjVeiculos = new Veiculo(Number(id),modelo,Number(ano),Number(valorDeVenda));
                 }
-                concessionaria.inserir(veiculo);
-                console.log('Veículo lido: ' + veiculo.id);
-            } else {
-                console.log("Fim do Arquivo")
-                break;
-            }
+                concessionaria.inserir(conjVeiculos);
         }
-    } catch (e: any) {
+        } catch (e: any) {
         throw new ArquivoError("Falha ao ler veículos de arquivo");
     }
 }
