@@ -198,30 +198,31 @@ function calcularIPVA() {
 // Função para carregar lista de veículos em arquivo
 function carregarArquivoDeTexto() {
     console.log("Iniciando leitura de arquivo...\n");
-    let contentFilePath = './veiculos.txt';
-    let lrs = fs.readFileSync(contentFilePath, 'utf8').toString().split('\n');
-    for (let veiculo of lrs) {
-        let dadosArquivo = veiculo.split(',');
-        let tipo = dadosArquivo[0];
+    let contentFilePath = "./veiculos.txt";
+    let veiculos = fs.readFileSync(contentFilePath, "utf8").toString().split("\n");
+    for (let veiculo of veiculos) {
+        let dadosArquivo = veiculo.split(",");
+        let tipo = Number(dadosArquivo[0]);
         let id = Number(dadosArquivo[1]);
         let modelo = dadosArquivo[2];
         let ano = Number(dadosArquivo[3]);
         let valorDeVenda = Number(dadosArquivo[4]);
-        let veiculos;
-        if (tipo == 'C') {
+        if (tipo == 1) {
             let potenciaDoMotor = dadosArquivo[5];
             let tipoDeCombustivel = dadosArquivo[6];
             let tipoDeCambio = dadosArquivo[7];
             let tipoDeDirecao = dadosArquivo[8];
-            veiculos = new carro_1.Carro(Number(id), modelo, Number(ano), Number(valorDeVenda), potenciaDoMotor, tipoDeCombustivel, tipoDeCambio, tipoDeDirecao);
+            let novoVeiculo = new carro_1.Carro(id, modelo, ano, valorDeVenda, potenciaDoMotor, tipoDeCombustivel, tipoDeCambio, tipoDeDirecao);
+            concessionaria.inserir(novoVeiculo);
         }
-        else if (tipo == 'M') {
+        else if (tipo == 2) {
             let cilindradas = Number(dadosArquivo[5]);
-            veiculos = new moto_1.Moto(Number(id), modelo, Number(ano), Number(valorDeVenda), Number(cilindradas));
+            let novoVeiculo = new moto_1.Moto(id, modelo, ano, valorDeVenda, cilindradas);
+            concessionaria.inserir(novoVeiculo);
         }
         else {
-            veiculos = new veiculo_1.Veiculo(Number(id), modelo, Number(ano), Number(valorDeVenda));
+            let novoVeiculo = new veiculo_1.Veiculo(id, modelo, ano, valorDeVenda);
+            concessionaria.inserir(novoVeiculo);
         }
-        concessionaria.inserir(veiculos);
     }
 }

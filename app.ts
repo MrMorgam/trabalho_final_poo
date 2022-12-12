@@ -67,7 +67,7 @@ do {
             break;
     }
     
-    } catch (e: any){
+    } catch (e: any) {
         console.log("")
 
         if(e instanceof AplicacaoError){
@@ -226,35 +226,35 @@ function calcularIPVA(): void {
 function carregarArquivoDeTexto() {
     console.log("Iniciando leitura de arquivo...\n");
 
-    let contentFilePath = './veiculos.txt';
-    let lrs = fs.readFileSync(contentFilePath, 'utf8').toString().split('\n');
+    let contentFilePath: string = "./veiculos.txt";
+    let veiculos: string[] = fs.readFileSync(contentFilePath, "utf8").toString().split("\n");
 
-    for (let veiculo of lrs) {
-        let dadosArquivo: string[] = veiculo.split(',');
+    for (let veiculo of veiculos) {
+        let dadosArquivo: string[] = veiculo.split(",");
 
-        let tipo: string = dadosArquivo[0];
+        let tipo: number = Number(dadosArquivo[0]);
         let id: number = Number(dadosArquivo[1]);
         let modelo: string = dadosArquivo[2];
         let ano: number = Number(dadosArquivo[3]);
         let valorDeVenda: number = Number(dadosArquivo[4]);
 
-        let veiculos: Veiculo;
-
-        if (tipo == 'C') {
+        if (tipo == 1) {
             let potenciaDoMotor: string = dadosArquivo[5];
             let tipoDeCombustivel: string = dadosArquivo[6];
             let tipoDeCambio: string = dadosArquivo[7];
             let tipoDeDirecao: string = dadosArquivo[8];
 
-            veiculos = new Carro(Number(id),modelo,Number(ano),Number(valorDeVenda),potenciaDoMotor,tipoDeCombustivel,tipoDeCambio,tipoDeDirecao);
-        } else if (tipo == 'M') {
+            let novoVeiculo: Carro = new Carro(id,modelo,ano,valorDeVenda,potenciaDoMotor,tipoDeCombustivel,tipoDeCambio,tipoDeDirecao);
+            concessionaria.inserir(novoVeiculo);
+        } else if (tipo == 2) {
             let cilindradas: number = Number(dadosArquivo[5]);
 
-            veiculos = new Moto(Number(id),modelo,Number(ano),Number(valorDeVenda),Number(cilindradas));
+            let novoVeiculo: Moto = new Moto(id,modelo,ano,valorDeVenda,cilindradas);
+            concessionaria.inserir(novoVeiculo);
         } else {
-            veiculos = new Veiculo(Number(id),modelo,Number(ano),Number(valorDeVenda));
+            let novoVeiculo: Veiculo  = new Veiculo(id,modelo,ano,valorDeVenda);
+
+            concessionaria.inserir(novoVeiculo);
         }
-        
-        concessionaria.inserir(veiculos);
     }
 }
