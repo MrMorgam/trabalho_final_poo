@@ -198,7 +198,7 @@ function calcularIPVA() {
 function carregarArquivoDeTexto() {
     console.log("Iniciando leitura de arquivo...\n");
     let enderecoDoArquivo = "./veiculos.txt";
-    let arquivo = fs.readFileSync(enderecoDoArquivo, { encoding: 'utf8', flag: 'r' });
+    let arquivo = fs.readFileSync(enderecoDoArquivo, { encoding: 'utf8', flag: 'r' }).toString();
     console.log("Arquivo carregado");
     let veiculos = arquivo.split("\n");
     for (let i = 0; i < veiculos.length; i++) {

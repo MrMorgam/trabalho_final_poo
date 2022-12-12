@@ -226,9 +226,9 @@ function carregarArquivoDeTexto() {
     console.log("Iniciando leitura de arquivo...\n");
 
     let enderecoDoArquivo: string = "./veiculos.txt";
-    let arquivo: string = fs.readFileSync(enderecoDoArquivo, { encoding: 'utf8', flag: 'r' });
+    let arquivo: string = fs.readFileSync(enderecoDoArquivo, { encoding: 'utf8', flag: 'r' }).toString();
     console.log("Arquivo carregado");
-    
+
     let veiculos: string[] = arquivo.split("\n");
 
     for (let i = 0; i < veiculos.length; i++) {
