@@ -224,10 +224,12 @@ function calcularIPVA(): void {
 // Função para carregar lista de veículos em arquivo
 
 function carregarArquivoDeTexto() {
+    console.log("Iniciando leitura de arquivo...\n");
+
     let contentFilePath = './veiculos.txt';
     let lrs = fs.readFileSync(contentFilePath, 'utf8').toString().split('\n');
-    console.log("Iniciando leitura de arquivo...\n");
-    for(let veiculo of lrs){
+
+    for (let veiculo of lrs) {
         let dadosArquivo = veiculo.split(',');
         let tipo: string = Array[0];
         let id: number = Number(Array[1]);
@@ -236,19 +238,19 @@ function carregarArquivoDeTexto() {
         let valorDeVenda: number = Number(Array[4]);
 
         let veiculos: Veiculo;
-        if(tipo == 'C'){
+        if (tipo == 'C') {
             let potenciaDoMotor: string = Array[5];
             let tipoDeCombustivel: string = Array[6];
             let tipoDeCambio: string = Array[7];
             let tipoDeDirecao: string = Array[8];
             veiculos = new Carro(Number(id),modelo,Number(ano),Number(valorDeVenda),potenciaDoMotor,tipoDeCombustivel,tipoDeCambio,tipoDeDirecao);
-        } else if (tipo == 'M'){
+        } else if (tipo == 'M') {
             let cilindradas: number = Number(Array[9]);
             veiculos = new Moto(Number(id),modelo,Number(ano),Number(valorDeVenda),Number(cilindradas));
         } else {
             veiculos = new Veiculo(Number(id),modelo,Number(ano),Number(valorDeVenda));
         }
-        concessionaria.inserir(veiculos);
         
+        concessionaria.inserir(veiculos);
     }
 }
