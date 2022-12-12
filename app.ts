@@ -225,8 +225,15 @@ function calcularIPVA(): void {
 function carregarArquivoDeTexto() {
     console.log("Iniciando leitura de arquivo...\n");
 
-    let enderecoDoArquivo: string = "./veiculos.txt";
-    let arquivo: string = fs.readFileSync(enderecoDoArquivo, { encoding: 'utf8', flag: 'r' }).toString();
+    let enderecoDoArquivo: string = "../veiculos.txt";
+    let arquivo: string;
+
+    try {
+        arquivo = fs.readFileSync(enderecoDoArquivo, 'utf8').toString();
+    } catch (e: any) {
+        throw new ArquivoError("Erro ao carregar o arquivo");
+    }
+
     console.log("Arquivo carregado");
 
     let veiculos: string[] = arquivo.split("\n");
@@ -236,13 +243,12 @@ function carregarArquivoDeTexto() {
 
         let tipo: number = Number(dadosArquivo[0]);
         
-        console.log(tipo);
+        let id: number = Number(dadosArquivo[1]);
+        let modelo: string = dadosArquivo[2];
+        let ano: number = Number(dadosArquivo[3]);
+        let valorDeVenda: number = Number(dadosArquivo[4]);
 
         if (tipo == 1) {
-            let id: number = Number(dadosArquivo[1]);
-            let modelo: string = dadosArquivo[2];
-            let ano: number = Number(dadosArquivo[3]);
-            let valorDeVenda: number = Number(dadosArquivo[4]);
             let potenciaDoMotor: string = dadosArquivo[5];
             let tipoDeCombustivel: string = dadosArquivo[6];
             let tipoDeCambio: string = dadosArquivo[7];
