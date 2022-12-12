@@ -1,4 +1,27 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    var desc = Object.getOwnPropertyDescriptor(m, k);
+    if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+      desc = { enumerable: true, get: function() { return m[k]; } };
+    }
+    Object.defineProperty(o, k2, desc);
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
@@ -9,6 +32,7 @@ const carro_1 = require("./carro");
 const moto_1 = require("./moto");
 const execoes_1 = require("./execoes");
 const prompt_sync_1 = __importDefault(require("prompt-sync"));
+const fs = __importStar(require("fs"));
 // Aplicação
 const input = (0, prompt_sync_1.default)();
 let concessionaria = new concessionaria_1.Concessionaria();
@@ -173,45 +197,31 @@ function calcularIPVA() {
 }
 // Função para carregar lista de veículos em arquivo
 function carregarArquivoDeTexto() {
-    try {
-        let LineReaderSync = require("line-reader-sync");
-        let lrs = new LineReaderSync("./veiculos.txt");
-        console.log("Inicializando leitura de Arquivo");
-        while (true) {
-            let linha = lrs.readline();
-            if (linha != null) {
-                let array = linha.split(",");
-                let tipo = array[0];
-                let id = parseFloat(array[1]);
-                let modelo = array[2];
-                let ano = parseFloat(array[3]);
-                let valorDeVenda = parseFloat(array[4]);
-                let quantidadeEmEstoque = parseFloat(array[5]);
-                let veiculo;
-                if (tipo == 'V') {
-                    veiculo = new veiculo_1.Veiculo(id, modelo, ano, valorDeVenda);
-                }
-                else if (tipo == 'C') {
-                    let potenciaDoMotor = array[6];
-                    let tipoDeCombustivel = array[7];
-                    let tipoDeCambio = array[8];
-                    let tipoDeDirecao = array[9];
-                    veiculo = new carro_1.Carro(id, modelo, ano, valorDeVenda, potenciaDoMotor, tipoDeCombustivel, tipoDeCambio, tipoDeDirecao);
-                }
-                else if (tipo == 'M') {
-                    let cilindradas = parseFloat(array[10]);
-                    veiculo = new moto_1.Moto(id, modelo, ano, valorDeVenda, cilindradas);
-                }
-                concessionaria.inserir(veiculo);
-                console.log('Veículo lido: ' + veiculo.id);
-            }
-            else {
-                console.log("Fim do Arquivo");
-                break;
-            }
+    console.log("Iniciando leitura de arquivo...\n");
+    let contentFilePath = './veiculos.txt';
+    let lrs = fs.readFileSync(contentFilePath, 'utf8').toString().split('\n');
+    for (let veiculo of lrs) {
+        let dadosArquivo = veiculo.split(',');
+        let tipo = dadosArquivo[0];
+        let id = Number(dadosArquivo[1]);
+        let modelo = dadosArquivo[2];
+        let ano = Number(dadosArquivo[3]);
+        let valorDeVenda = Number(dadosArquivo[4]);
+        let veiculos;
+        if (tipo == 'C') {
+            let potenciaDoMotor = dadosArquivo[5];
+            let tipoDeCombustivel = dadosArquivo[6];
+            let tipoDeCambio = dadosArquivo[7];
+            let tipoDeDirecao = dadosArquivo[8];
+            veiculos = new carro_1.Carro(Number(id), modelo, Number(ano), Number(valorDeVenda), potenciaDoMotor, tipoDeCombustivel, tipoDeCambio, tipoDeDirecao);
         }
-    }
-    catch (e) {
-        throw new execoes_1.ArquivoError("Falha ao ler veículos de arquivo");
+        else if (tipo == 'M') {
+            let cilindradas = Number(dadosArquivo[5]);
+            veiculos = new moto_1.Moto(Number(id), modelo, Number(ano), Number(valorDeVenda), Number(cilindradas));
+        }
+        else {
+            veiculos = new veiculo_1.Veiculo(Number(id), modelo, Number(ano), Number(valorDeVenda));
+        }
+        concessionaria.inserir(veiculos);
     }
 }

@@ -230,22 +230,26 @@ function carregarArquivoDeTexto() {
     let lrs = fs.readFileSync(contentFilePath, 'utf8').toString().split('\n');
 
     for (let veiculo of lrs) {
-        let dadosArquivo = veiculo.split(',');
-        let tipo: string = Array[0];
-        let id: number = Number(Array[1]);
-        let modelo: string = Array[2];
-        let ano: number = Number(Array[3]);
-        let valorDeVenda: number = Number(Array[4]);
+        let dadosArquivo: string[] = veiculo.split(',');
+
+        let tipo: string = dadosArquivo[0];
+        let id: number = Number(dadosArquivo[1]);
+        let modelo: string = dadosArquivo[2];
+        let ano: number = Number(dadosArquivo[3]);
+        let valorDeVenda: number = Number(dadosArquivo[4]);
 
         let veiculos: Veiculo;
+
         if (tipo == 'C') {
-            let potenciaDoMotor: string = Array[5];
-            let tipoDeCombustivel: string = Array[6];
-            let tipoDeCambio: string = Array[7];
-            let tipoDeDirecao: string = Array[8];
+            let potenciaDoMotor: string = dadosArquivo[5];
+            let tipoDeCombustivel: string = dadosArquivo[6];
+            let tipoDeCambio: string = dadosArquivo[7];
+            let tipoDeDirecao: string = dadosArquivo[8];
+
             veiculos = new Carro(Number(id),modelo,Number(ano),Number(valorDeVenda),potenciaDoMotor,tipoDeCombustivel,tipoDeCambio,tipoDeDirecao);
         } else if (tipo == 'M') {
-            let cilindradas: number = Number(Array[9]);
+            let cilindradas: number = Number(dadosArquivo[5]);
+
             veiculos = new Moto(Number(id),modelo,Number(ano),Number(valorDeVenda),Number(cilindradas));
         } else {
             veiculos = new Veiculo(Number(id),modelo,Number(ano),Number(valorDeVenda));
