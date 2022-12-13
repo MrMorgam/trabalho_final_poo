@@ -9,6 +9,7 @@ import * as fs from "fs";
 
 
 // Aplicação
+
 let concessionaria: Concessionaria = new Concessionaria();
 
 console.clear();
@@ -36,7 +37,7 @@ do {
 
         opcao = input(">> ");
 
-        switch(opcao) {
+        switch (opcao) {
             case "1":
                 console.clear();
                 inserir();
