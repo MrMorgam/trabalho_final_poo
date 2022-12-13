@@ -269,3 +269,19 @@ function carregarArquivoDeTexto() {
         }
     }
 }
+
+const readline = require('readline');
+const {stdout: output} = require('process');
+const rl = readline.createInterface({ input, output});
+function requestInfo() {
+    rl.question('Informe o Id: ', (id) => {
+        try{
+            if(!id) return requestInfo();
+            const data = Buffer.from(`Id:  ${concessionaria.consultar(id).id} `);
+            fs.writeFileSync(`${id}.txt`, data, {flag: 'ax'});
+            } catch (e: any){
+                console.log(e.message);
+                return requestInfo();
+            }
+    })  
+}
