@@ -167,8 +167,6 @@ function consultar(): void {
     if (veiculo instanceof Moto) {
         console.log(`Cilindradas: ${veiculo.cilindradas}`);
     }
-
-    console.log(`Quantidade em estoque: ${veiculo.quantidadeEmEstoque}`);
 }
 
 function alterar(): void {
@@ -270,19 +268,19 @@ function carregarArquivoDeTexto(): void {
         let quantidadeEmEstoque: number = Number(dadosArquivo[5]);
 
         if (tipo == 1) {
-            let tipoDeCombustivel: string = dadosArquivo[6];
+            let potenciaDoMotor: string = dadosArquivo[6];
             let tipoDeCambio: string = dadosArquivo[7];
             let tipoDeDirecao: string = dadosArquivo[8];
 
             let novoVeiculo: Carro = new Carro(id, modelo, ano, valorDeVenda,
-                                               quantidadeEmEstoque, tipoDeCombustivel, 
+                                               quantidadeEmEstoque, potenciaDoMotor, 
                                                tipoDeCambio, tipoDeDirecao);
             
             concessionaria.inserir(novoVeiculo);
         } 
         
         if (tipo == 2) {
-            let cilindradas: number = Number(dadosArquivo[5]);
+            let cilindradas: number = Number(dadosArquivo[6]);
 
             let novoVeiculo: Moto = new Moto(id, modelo, ano, valorDeVenda, 
                                              quantidadeEmEstoque, cilindradas);

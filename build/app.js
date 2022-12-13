@@ -161,7 +161,6 @@ function consultar() {
     if (veiculo instanceof moto_1.Moto) {
         console.log(`Cilindradas: ${veiculo.cilindradas}`);
     }
-    console.log(`Quantidade em estoque: ${veiculo.quantidadeEmEstoque}`);
 }
 function alterar() {
     console.log("ALTERAR CADASTRO DE VEÍCULO\n");
@@ -231,14 +230,14 @@ function carregarArquivoDeTexto() {
         let valorDeVenda = Number(dadosArquivo[4]);
         let quantidadeEmEstoque = Number(dadosArquivo[5]);
         if (tipo == 1) {
-            let tipoDeCombustivel = dadosArquivo[6];
+            let potenciaDoMotor = dadosArquivo[6];
             let tipoDeCambio = dadosArquivo[7];
             let tipoDeDirecao = dadosArquivo[8];
-            let novoVeiculo = new carro_1.Carro(id, modelo, ano, valorDeVenda, quantidadeEmEstoque, tipoDeCombustivel, tipoDeCambio, tipoDeDirecao);
+            let novoVeiculo = new carro_1.Carro(id, modelo, ano, valorDeVenda, quantidadeEmEstoque, potenciaDoMotor, tipoDeCambio, tipoDeDirecao);
             concessionaria.inserir(novoVeiculo);
         }
         if (tipo == 2) {
-            let cilindradas = Number(dadosArquivo[5]);
+            let cilindradas = Number(dadosArquivo[6]);
             let novoVeiculo = new moto_1.Moto(id, modelo, ano, valorDeVenda, quantidadeEmEstoque, cilindradas);
             concessionaria.inserir(novoVeiculo);
         }
