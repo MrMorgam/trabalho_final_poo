@@ -3,7 +3,6 @@ import { Tributavel } from "./interfaces";
 
 class Carro extends Veiculo implements Tributavel {
     private _potenciaDoMotor: string;
-    private _tipoDeCombustivel: string;
     private _tipoDeCambio: string;
     private _tipoDeDirecao: string;
 
@@ -12,16 +11,15 @@ class Carro extends Veiculo implements Tributavel {
         modelo: string,
         ano: number,
         valorDeVenda: number,
+        quantidadeEmEstoque: number,
         potenciaDoMotor: string,
-        tipoDeCombustivel: string,
         tipoDeCambio: string,
         tipoDeDirecao: string
         ) 
     {
-        super(id, modelo, ano, valorDeVenda);
+        super(id, modelo, ano, valorDeVenda, quantidadeEmEstoque);
 
         this._potenciaDoMotor = potenciaDoMotor;
-        this._tipoDeCombustivel = tipoDeCombustivel;
         this._tipoDeCambio = tipoDeCambio;
         this._tipoDeDirecao = tipoDeDirecao;
     }
@@ -31,11 +29,7 @@ class Carro extends Veiculo implements Tributavel {
     get potenciaDoMotor(): string {
         return this._potenciaDoMotor;
     }
-
-    get tipoDeCombustivel(): string {
-        return this._tipoDeCombustivel;
-    }
-
+    
     get tipoDeCambio(): string {
         return this._tipoDeCambio;
     }

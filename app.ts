@@ -8,97 +8,102 @@ const input = prompt();
 import * as fs from "fs";
 
 
-// Aplicação
-
 let concessionaria: Concessionaria = new Concessionaria();
 
-console.clear();
-console.log("Iniciando leitura de arquivo...\n");
 
-try {
-    carregarArquivoDeTexto();
-} catch (e: any) {
-    console.log(e.message);
-}
+// Aplicação
 
-input("Arquivo carregado. Precione <ENTER>...");
+function main(): void {
+    console.clear();
+    console.log("Iniciando leitura de arquivo...\n");
 
-let opcao: string = '';
-
-do {
     try {
-        console.clear();
-        console.log("########## APP CONCESSIONÁRIA ##########");
-        console.log("\nEscolha uma opção: \n");
-        console.log("1 - Cadastrar\n2 - Consultar \n3 - Alterar" +  
-                    "\n4 - Excluir\n5 - Dar baixa em estoque\n6 - Repor em estoque" +
-                    "\n7 - Listar todos os veículos\n8 - Simular valor do IPVA para um veículo" +
-                    "\n\n0 - Salvar e sair\n");
-
-        opcao = input(">> ");
-
-        switch (opcao) {
-            case "1":
-                console.clear();
-                inserir();
-                break;
-            case "2":
-                console.clear();
-                consultar();
-                break;
-            case "3":
-                console.clear();
-                alterar();
-                break;
-            case "4":
-                console.clear();
-                excluir();
-                break;
-            case "5":
-                console.clear();
-                darBaixa();
-                break;
-            case "6":
-                console.clear();
-                repor();
-                break;
-            case "7":
-                console.clear();
-                listarVeiculos();
-                break;
-            case "8":
-                console.clear();
-                calcularIPVA();
-                break;
-            case "0":
-                break;
-        }
+        carregarArquivoDeTexto();
     } catch (e: any) {
-        console.log("");
+        console.log(e.message);
+    }
 
-        if (e instanceof AplicacaoError) {
-            console.log(e.message);
-        } else {
-            console.log("Erro inesperado: contate o administrador do sistema.");
+    input("Arquivo carregado. Precione <ENTER>...");
+
+    let opcao: string = '';
+
+    do {
+        try {
+            console.clear();
+            console.log("########## APP CONCESSIONÁRIA ##########");
+            console.log("\nEscolha uma opção: \n");
+            console.log("1 - Cadastrar\n2 - Consultar \n3 - Alterar" +  
+                        "\n4 - Excluir\n5 - Dar baixa em estoque\n6 - Repor em estoque" +
+                        "\n7 - Listar todos os veículos\n8 - Simular valor do IPVA para um veículo" +
+                        "\n\n0 - Salvar e sair\n");
+
+            opcao = input(">> ");
+
+            switch (opcao) {
+                case "1":
+                    console.clear();
+                    inserir();
+                    break;
+                case "2":
+                    console.clear();
+                    consultar();
+                    break;
+                case "3":
+                    console.clear();
+                    alterar();
+                    break;
+                case "4":
+                    console.clear();
+                    excluir();
+                    break;
+                case "5":
+                    console.clear();
+                    darBaixa();
+                    break;
+                case "6":
+                    console.clear();
+                    repor();
+                    break;
+                case "7":
+                    console.clear();
+                    listarVeiculos();
+                    break;
+                case "8":
+                    console.clear();
+                    calcularIPVA();
+                    break;
+                case "0":
+                    break;
+            }
+        } catch (e: any) {
+            console.log("");
+
+            if (e instanceof AplicacaoError) {
+                console.log(e.message);
+            } else {
+                console.log("Erro inesperado: contate o administrador do sistema.");
+            }
         }
+        
+        if (opcao != '0') {
+            console.log("");
+            input("Operação finalizada. Pressione <enter>");
+        }
+        
+    } while (opcao != "0");
+
+    console.clear();
+    console.log("Salvando arquivo de texto...\n");
+
+    try {
+        salvarArquivoDeTexto();
+    } catch (e: any) {
+        console.log(e.messsage);
     }
-    
-    if (opcao != '0') {
-        console.log("");
-        input("Operação finalizada. Pressione <enter>");
-    }
-    
-} while (opcao != "0");
 
-console.clear();
-console.log("Salvando arquivo de texto...\n");
-
-salvarArquivoDeTexto();
-
-input("Arquivo salvo. Precione <ENTER>");
-
-console.clear();
-
+    input("Arquivo salvo. Precione <ENTER>");
+    console.clear();
+}
 
 // Funções de CRUD
 
@@ -113,16 +118,16 @@ function inserir(): void {
     let modelo: string = input("Modelo: ");
     let ano: number = Number(input("Ano: "));
     let valorDeVenda: number = Number(input("Valor de venda: "));
+    let quantidadeEmEstoque: number = Number(input("Quantidade em estoque: "))
 
     if (tipoVeiculo == 1) {
-        let potenciaDoMotor: string = input("Potência do motor: ");
         let tipoDeCombustivel: string = input("Tipo de combustível: ");
         let tipoDeCambio: string = input("Tipo de câmbio: ");
         let tipoDeDirecao: string = input("Tipo de direção: ");
 
 
         let veiculo: Carro = new Carro(id, modelo, ano, valorDeVenda, 
-                                       potenciaDoMotor, tipoDeCombustivel, 
+                                       quantidadeEmEstoque, tipoDeCombustivel, 
                                        tipoDeCambio, tipoDeDirecao);
 
         concessionaria.inserir(veiculo);
@@ -132,7 +137,8 @@ function inserir(): void {
     if (tipoVeiculo == 2) {
         let cilindradas: number = Number(input("Cilindradas: "));
 
-        let veiculo: Moto = new Moto(id, modelo, ano, valorDeVenda, cilindradas);
+        let veiculo: Moto = new Moto(id, modelo, ano, valorDeVenda, 
+                                     quantidadeEmEstoque, cilindradas);
 
         concessionaria.inserir(veiculo);
     }
@@ -150,10 +156,10 @@ function consultar(): void {
     console.log(`Modelo: ${veiculo.modelo}`);
     console.log(`Ano: ${veiculo.ano}`);
     console.log(`Valor de venda: ${veiculo.valorDeVenda}`);
+    console.log(`Quantidade em estoque: ${veiculo.quantidadeEmEstoque}`);
 
     if (veiculo instanceof Carro) {
         console.log(`Potência do motor: ${veiculo.potenciaDoMotor}`);
-        console.log(`Tipo de combustível: ${veiculo.tipoDeCombustivel}`);
         console.log(`Tipo de câmbio: ${veiculo.tipoDeCambio}`);
         console.log(`Tipo de direção: ${veiculo.tipoDeDirecao}`);
     }
@@ -174,16 +180,16 @@ function alterar(): void {
     let modelo: string = input("Modelo: ");
     let ano: number = Number(input("Ano: "));
     let valorDeVenda: number = Number(input("Valor de venda: "));
+    let quantidadeEmEstoque: number = Number(input("Potência do motor: "));
 
     if (veiculo1 instanceof Carro) {
-        let potenciaDoMotor: string = input("Potência do motor: ");
         let tipoDeCombustivel: string = input("Tipo de combustível: ");
         let tipoDeCambio: string = input("Tipo de câmbio: ");
         let tipoDeDirecao: string = input("Tipo de direção: ");
 
 
         let veiculo2: Carro = new Carro(id, modelo, ano, valorDeVenda, 
-                                       potenciaDoMotor, tipoDeCombustivel, 
+                                       quantidadeEmEstoque, tipoDeCombustivel, 
                                        tipoDeCambio, tipoDeDirecao);
 
         concessionaria.alterar(veiculo2);
@@ -193,7 +199,8 @@ function alterar(): void {
     if (veiculo1 instanceof Moto) {
         let cilindradas: number = Number(input("Cilindradas: "));
 
-        let veiculo2: Moto = new Moto(id, modelo, ano, valorDeVenda, cilindradas);
+        let veiculo2: Moto = new Moto(id, modelo, ano, valorDeVenda, 
+                                      quantidadeEmEstoque, cilindradas);
 
         concessionaria.alterar(veiculo2);
     }
@@ -260,21 +267,26 @@ function carregarArquivoDeTexto(): void {
         let modelo: string = dadosArquivo[2];
         let ano: number = Number(dadosArquivo[3]);
         let valorDeVenda: number = Number(dadosArquivo[4]);
+        let quantidadeEmEstoque: number = Number(dadosArquivo[5]);
 
         if (tipo == 1) {
-            let potenciaDoMotor: string = dadosArquivo[5];
             let tipoDeCombustivel: string = dadosArquivo[6];
             let tipoDeCambio: string = dadosArquivo[7];
             let tipoDeDirecao: string = dadosArquivo[8];
 
-            let novoVeiculo: Carro = new Carro(id, modelo, ano, valorDeVenda, potenciaDoMotor, tipoDeCombustivel, tipoDeCambio, tipoDeDirecao);
+            let novoVeiculo: Carro = new Carro(id, modelo, ano, valorDeVenda,
+                                               quantidadeEmEstoque, tipoDeCombustivel, 
+                                               tipoDeCambio, tipoDeDirecao);
+            
             concessionaria.inserir(novoVeiculo);
         } 
         
         if (tipo == 2) {
             let cilindradas: number = Number(dadosArquivo[5]);
 
-            let novoVeiculo: Moto = new Moto(id, modelo, ano, valorDeVenda, cilindradas);
+            let novoVeiculo: Moto = new Moto(id, modelo, ano, valorDeVenda, 
+                                             quantidadeEmEstoque, cilindradas);
+            
             concessionaria.inserir(novoVeiculo);
         }
     }
@@ -298,17 +310,17 @@ function salvarArquivoDeTexto(): void {
         let modelo: string = veiculos[i].modelo;
         let ano: string = String(veiculos[i].ano);
         let valorDeVenda: string = String(veiculos[i].valorDeVenda);
+        let quantidadeEmEstoque: string = String(veiculos[i].quantidadeEmEstoque);
         
         if (veiculos[i] instanceof Carro) {
             tipo = "1";
 
             let potenciaDoMotor: string = (<Carro>veiculos[i]).potenciaDoMotor;
-            let tipoDeCombustivel: string = (<Carro>veiculos[i]).tipoDeCombustivel;
             let tipoDeCambio: string = (<Carro>veiculos[i]).tipoDeCambio;
             let tipoDeDirecao: string = (<Carro>veiculos[i]).tipoDeDirecao;
 
             stringDeDados += `${tipo},${id},${modelo},${ano},${valorDeVenda},` +
-                              `${potenciaDoMotor},${tipoDeCombustivel},` +
+                              `${quantidadeEmEstoque},${potenciaDoMotor},` +
                               `${tipoDeCambio},${tipoDeDirecao}\n`;
         }
 
@@ -317,11 +329,17 @@ function salvarArquivoDeTexto(): void {
 
             let cilindradas: number =  (<Moto>veiculos[i]).cilindradas;
 
-            stringDeDados += `${tipo},${id},${modelo},${ano},${valorDeVenda},${cilindradas}\n`;
+            stringDeDados += `${tipo},${id},${modelo},${ano},${valorDeVenda},` +
+                             `${quantidadeEmEstoque},${cilindradas}\n`;
         }
     }
 
-    console.log(stringDeDados);
-
-    fs.writeFileSync(enderecoDoArquivo, stringDeDados);
+    try {
+        fs.writeFileSync(enderecoDoArquivo, stringDeDados);
+    } catch(e: any) {
+        throw new ArquivoError("Erro ao salvar o arquivo");
+    }
 }
+
+
+main();

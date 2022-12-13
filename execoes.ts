@@ -40,7 +40,7 @@ class ValorDeVendaInvalidoException extends AplicacaoError {
     }
 }
 
-class NaoPossuiEstoqueException extends AplicacaoError {
+class QuantidadeEmEstoqueInvalidaException extends AplicacaoError {
     constructor(message: string) {
         super(message);
     }
@@ -62,5 +62,5 @@ class ArquivoError extends AplicacaoError {
 export { VeiculoJaCadastradoException, VeiculoInexistenteException, 
          NumeroInvalidoException, OpcaoInvalidaException, 
          AnoInvalidoException, ValorDeVendaInvalidoException,
-         NaoPossuiEstoqueException, QuantidadeInvalidaException, 
+         QuantidadeEmEstoqueInvalidaException, QuantidadeInvalidaException, 
          AplicacaoError, ArquivoError }

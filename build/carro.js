@@ -4,22 +4,17 @@ exports.Carro = void 0;
 const veiculo_1 = require("./veiculo");
 class Carro extends veiculo_1.Veiculo {
     _potenciaDoMotor;
-    _tipoDeCombustivel;
     _tipoDeCambio;
     _tipoDeDirecao;
-    constructor(id, modelo, ano, valorDeVenda, potenciaDoMotor, tipoDeCombustivel, tipoDeCambio, tipoDeDirecao) {
-        super(id, modelo, ano, valorDeVenda);
+    constructor(id, modelo, ano, valorDeVenda, quantidadeEmEstoque, potenciaDoMotor, tipoDeCambio, tipoDeDirecao) {
+        super(id, modelo, ano, valorDeVenda, quantidadeEmEstoque);
         this._potenciaDoMotor = potenciaDoMotor;
-        this._tipoDeCombustivel = tipoDeCombustivel;
         this._tipoDeCambio = tipoDeCambio;
         this._tipoDeDirecao = tipoDeDirecao;
     }
     // Métodos de leitura
     get potenciaDoMotor() {
         return this._potenciaDoMotor;
-    }
-    get tipoDeCombustivel() {
-        return this._tipoDeCombustivel;
     }
     get tipoDeCambio() {
         return this._tipoDeCambio;

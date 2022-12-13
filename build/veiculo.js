@@ -9,12 +9,12 @@ class Veiculo {
     _valorDeVenda;
     _quantidadeEmEstoque;
     // Construtor
-    constructor(id, modelo, ano, valorDeVenda) {
+    constructor(id, modelo, ano, valorDeVenda, quantidadeEmEstoque) {
         this._id = id;
         this._modelo = modelo;
         this._ano = ano;
         this._valorDeVenda = valorDeVenda;
-        this._quantidadeEmEstoque = 0;
+        this._quantidadeEmEstoque = quantidadeEmEstoque;
     }
     // Métodos de leitura
     get id() {

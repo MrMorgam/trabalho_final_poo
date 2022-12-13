@@ -48,11 +48,17 @@ class Concessionaria {
             throw new execoes_1.ValorDeVendaInvalidoException("Erro: valor de venda inválido");
         }
     }
+    validarQuantidadeEmEstoque(quantidadeEmEstoque) {
+        if (quantidadeEmEstoque < 0 || quantidadeEmEstoque % 1 != 0) {
+            throw new execoes_1.QuantidadeEmEstoqueInvalidaException("Erro: quantidade em estoque inválida");
+        }
+    }
     // Métodos de CRUD
     inserir(veiculo) {
         if (this.validarNumeroId(veiculo.id)) {
             this.validarAno(veiculo.ano);
             this.validarValorDeVenda(veiculo.valorDeVenda);
+            this.validarQuantidadeEmEstoque(veiculo.quantidadeEmEstoque);
             let indiceVeiculoProcurado = this.consultarIndiceSemExcecao(veiculo.id);
             if (indiceVeiculoProcurado == -1) {
                 this._veiculos.push(veiculo);
@@ -70,6 +76,7 @@ class Concessionaria {
         let indice = this.consultarIndice(veiculo.id);
         this.validarAno(veiculo.ano);
         this.validarValorDeVenda(veiculo.valorDeVenda);
+        this.validarQuantidadeEmEstoque(veiculo.quantidadeEmEstoque);
         this._veiculos[indice] = veiculo;
     }
     excluir(id) {
@@ -82,7 +89,7 @@ class Concessionaria {
     // Métodos de estoque
     darBaixa(quantidade, id) {
         if (this.consultar(id).quantidadeEmEstoque - quantidade < 0) {
-            throw new execoes_1.NaoPossuiEstoqueException("Erro: o veículo não possui estoque suficiente para realizar a operação");
+            throw new execoes_1.QuantidadeEmEstoqueInvalidaException("Erro: o veículo não possui estoque suficiente para realizar a operação");
         }
         if (quantidade < 0 || quantidade % 1 != 0) {
             throw new execoes_1.QuantidadeInvalidaException("Erro: quantidade inválida");

@@ -2,7 +2,7 @@ import { Veiculo } from "./veiculo";
 import { Tributavel } from "./interfaces";
 import { VeiculoInexistenteException, VeiculoJaCadastradoException,
          NumeroInvalidoException, AnoInvalidoException, 
-         ValorDeVendaInvalidoException, NaoPossuiEstoqueException,
+         ValorDeVendaInvalidoException, QuantidadeEmEstoqueInvalidaException,
          QuantidadeInvalidaException } from "./execoes";
 
 class Concessionaria {
@@ -68,6 +68,12 @@ class Concessionaria {
         }
     }
 
+    private validarQuantidadeEmEstoque(quantidadeEmEstoque: number): void {
+        if (quantidadeEmEstoque < 0 || quantidadeEmEstoque % 1 != 0) {
+            throw new QuantidadeEmEstoqueInvalidaException("Erro: quantidade em estoque inválida");
+        }
+    }
+
 
     // Métodos de CRUD
 
@@ -75,6 +81,7 @@ class Concessionaria {
         if (this.validarNumeroId(veiculo.id)) {
             this.validarAno(veiculo.ano);
             this.validarValorDeVenda(veiculo.valorDeVenda);
+            this.validarQuantidadeEmEstoque(veiculo.quantidadeEmEstoque);
 
             let indiceVeiculoProcurado: number = this.consultarIndiceSemExcecao(veiculo.id);
 
@@ -98,6 +105,7 @@ class Concessionaria {
 
         this.validarAno(veiculo.ano);
         this.validarValorDeVenda(veiculo.valorDeVenda);
+        this.validarQuantidadeEmEstoque(veiculo.quantidadeEmEstoque);
 
         this._veiculos[indice] = veiculo;
     }
@@ -117,7 +125,7 @@ class Concessionaria {
 
     public darBaixa(quantidade: number, id: number): void {
         if (this.consultar(id).quantidadeEmEstoque - quantidade < 0) {
-            throw new NaoPossuiEstoqueException("Erro: o veículo não possui estoque suficiente para realizar a operação");
+            throw new QuantidadeEmEstoqueInvalidaException("Erro: o veículo não possui estoque suficiente para realizar a operação");
         }
 
         if (quantidade < 0 || quantidade % 1 != 0) {

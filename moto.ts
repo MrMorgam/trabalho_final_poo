@@ -9,10 +9,11 @@ class Moto extends Veiculo implements Tributavel {
         modelo: string,
         ano: number,
         valorDeVenda: number,
+        quantidadeEmEstoque: number,
         cilindradas: number
         ) 
     {
-        super(id, modelo, ano, valorDeVenda);
+        super(id, modelo, ano, valorDeVenda, quantidadeEmEstoque);
 
         this._cilindradas = cilindradas;
     }
