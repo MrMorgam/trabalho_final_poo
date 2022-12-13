@@ -1,2 +1,0 @@
-1,1,Hyundai HB20,2020,70000,1.0,flex,manual,hidraulica
-2,2,Honda XRE 300,2022,18000,290
