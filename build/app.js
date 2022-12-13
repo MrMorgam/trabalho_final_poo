@@ -31,10 +31,19 @@ const carro_1 = require("./carro");
 const moto_1 = require("./moto");
 const execoes_1 = require("./execoes");
 const prompt_sync_1 = __importDefault(require("prompt-sync"));
+const input = (0, prompt_sync_1.default)();
 const fs = __importStar(require("fs"));
 // Aplicação
-const input = (0, prompt_sync_1.default)();
 let concessionaria = new concessionaria_1.Concessionaria();
+console.clear();
+console.log("Iniciando leitura de arquivo...\n");
+try {
+    carregarArquivoDeTexto();
+}
+catch (e) {
+    console.log(e.message);
+}
+input("Arquivo carregado. Precione <ENTER>...");
 let opcao = '';
 do {
     try {
@@ -44,7 +53,6 @@ do {
         console.log("1 - Cadastrar\n2 - Consultar \n3 - Alterar" +
             "\n4 - Excluir\n5 - Dar baixa em estoque\n6 - Repor em estoque" +
             "\n7 - Listar todos os veículos\n8 - Simular valor do IPVA para um veículo" +
-            "\n9 - Carregar arquivo de dados\n" +
             "\n\n0 - Salvar e sair\n");
         opcao = input(">> ");
         switch (opcao) {
@@ -79,10 +87,6 @@ do {
             case "8":
                 console.clear();
                 calcularIPVA();
-                break;
-            case "9":
-                console.clear();
-                carregarArquivoDeTexto();
                 break;
             case "0":
                 break;
@@ -196,7 +200,6 @@ function calcularIPVA() {
 }
 // Função para carregar lista de veículos em arquivo
 function carregarArquivoDeTexto() {
-    console.log("Iniciando leitura de arquivo...\n");
     let enderecoDoArquivo = "../veiculos.txt";
     let arquivo;
     try {
@@ -205,7 +208,6 @@ function carregarArquivoDeTexto() {
     catch (e) {
         throw new execoes_1.ArquivoError("Erro ao carregar o arquivo");
     }
-    console.log("Arquivo carregado");
     let veiculos = arquivo.split("\n");
     for (let i = 0; i < veiculos.length; i++) {
         let dadosArquivo = veiculos[i].split(",");
@@ -223,10 +225,6 @@ function carregarArquivoDeTexto() {
             concessionaria.inserir(novoVeiculo);
         }
         if (tipo == 2) {
-            let id = Number(dadosArquivo[1]);
-            let modelo = dadosArquivo[2];
-            let ano = Number(dadosArquivo[3]);
-            let valorDeVenda = Number(dadosArquivo[4]);
             let cilindradas = Number(dadosArquivo[5]);
             let novoVeiculo = new moto_1.Moto(id, modelo, ano, valorDeVenda, cilindradas);
             concessionaria.inserir(novoVeiculo);

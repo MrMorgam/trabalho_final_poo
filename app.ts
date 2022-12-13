@@ -4,13 +4,24 @@ import { Carro } from "./carro";
 import { Moto } from "./moto";
 import { AplicacaoError, ArquivoError } from "./execoes";
 import prompt from "prompt-sync";
+const input = prompt();
 import * as fs from "fs";
 
 
 // Aplicação
-
-const input = prompt();
 let concessionaria: Concessionaria = new Concessionaria();
+
+console.clear();
+console.log("Iniciando leitura de arquivo...\n");
+
+try {
+    carregarArquivoDeTexto();
+} catch (e: any) {
+    console.log(e.message);
+}
+
+input("Arquivo carregado. Precione <ENTER>...");
+
 let opcao: string = '';
 
 do {
@@ -21,7 +32,6 @@ do {
         console.log("1 - Cadastrar\n2 - Consultar \n3 - Alterar" +  
                     "\n4 - Excluir\n5 - Dar baixa em estoque\n6 - Repor em estoque" +
                     "\n7 - Listar todos os veículos\n8 - Simular valor do IPVA para um veículo" +
-                    "\n9 - Carregar arquivo de dados\n" +
                     "\n\n0 - Salvar e sair\n");
 
         opcao = input(">> ");
@@ -59,15 +69,11 @@ do {
                 console.clear();
                 calcularIPVA();
                 break;
-            case "9":
-                console.clear();
-                carregarArquivoDeTexto();
-                break;
             case "0":
                 break;
         }
     } catch (e: any) {
-        console.log("")
+        console.log("");
 
         if (e instanceof AplicacaoError) {
             console.log(e.message);
@@ -223,8 +229,6 @@ function calcularIPVA(): void {
 // Função para carregar lista de veículos em arquivo
 
 function carregarArquivoDeTexto() {
-    console.log("Iniciando leitura de arquivo...\n");
-
     let enderecoDoArquivo: string = "../veiculos.txt";
     let arquivo: string;
 
@@ -233,8 +237,6 @@ function carregarArquivoDeTexto() {
     } catch (e: any) {
         throw new ArquivoError("Erro ao carregar o arquivo");
     }
-
-    console.log("Arquivo carregado");
 
     let veiculos: string[] = arquivo.split("\n");
 
@@ -254,18 +256,14 @@ function carregarArquivoDeTexto() {
             let tipoDeCambio: string = dadosArquivo[7];
             let tipoDeDirecao: string = dadosArquivo[8];
 
-            let novoVeiculo: Carro = new Carro(id,modelo,ano,valorDeVenda,potenciaDoMotor,tipoDeCombustivel,tipoDeCambio,tipoDeDirecao);
+            let novoVeiculo: Carro = new Carro(id, modelo, ano, valorDeVenda, potenciaDoMotor, tipoDeCombustivel, tipoDeCambio, tipoDeDirecao);
             concessionaria.inserir(novoVeiculo);
         } 
         
         if (tipo == 2) {
-            let id: number = Number(dadosArquivo[1]);
-            let modelo: string = dadosArquivo[2];
-            let ano: number = Number(dadosArquivo[3]);
-            let valorDeVenda: number = Number(dadosArquivo[4]);
             let cilindradas: number = Number(dadosArquivo[5]);
 
-            let novoVeiculo: Moto = new Moto(id,modelo,ano,valorDeVenda,cilindradas);
+            let novoVeiculo: Moto = new Moto(id, modelo, ano, valorDeVenda, cilindradas);
             concessionaria.inserir(novoVeiculo);
         }
     }
