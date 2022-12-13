@@ -82,10 +82,20 @@ do {
             console.log("Erro inesperado: contate o administrador do sistema.");
         }
     }
-
-    console.log("");
-    input("Operação finalizada. Pressione <enter>");
+    
+    if (opcao != '0') {
+        console.log("");
+        input("Operação finalizada. Pressione <enter>");
+    }
+    
 } while (opcao != "0");
+
+console.clear();
+console.log("Salvando arquivo de texto...\n");
+
+salvarArquivoDeTexto();
+
+input("Arquivo salvo. Precione <ENTER>");
 
 console.clear();
 
@@ -227,9 +237,9 @@ function calcularIPVA(): void {
 }
 
 
-// Função para carregar lista de veículos em arquivo
+// Funções para carregar e salvar lista de veículos em arquivo
 
-function carregarArquivoDeTexto() {
+function carregarArquivoDeTexto(): void {
     let enderecoDoArquivo: string = "../veiculos.txt";
     let arquivo: string;
 
@@ -270,18 +280,48 @@ function carregarArquivoDeTexto() {
     }
 }
 
-const readline = require('readline');
-const {stdout: output} = require('process');
-const rl = readline.createInterface({ input, output});
-function requestInfo() {
-    rl.question('Informe o Id: ', (id) => {
-        try{
-            if(!id) return requestInfo();
-            const data = Buffer.from(`Id:  ${concessionaria.consultar(id).id} `);
-            fs.writeFileSync(`${id}.txt`, data, {flag: 'ax'});
-            } catch (e: any){
-                console.log(e.message);
-                return requestInfo();
-            }
-    })  
+function salvarArquivoDeTexto(): void {
+    let enderecoDoArquivo: string = "../veiculos.txt";
+
+    let veiculos: Veiculo[] = [];
+
+    for (let i = 0; i < concessionaria.contarVeiculos(); i++) {
+        veiculos[i] = concessionaria.consultarPorIndice(i);
+    }
+
+    let stringDeDados: string = "";
+
+    for (let i = 0; i < veiculos.length; i++) {
+        let tipo: string;
+        
+        let id: string = String(veiculos[i].id);
+        let modelo: string = veiculos[i].modelo;
+        let ano: string = String(veiculos[i].ano);
+        let valorDeVenda: string = String(veiculos[i].valorDeVenda);
+        
+        if (veiculos[i] instanceof Carro) {
+            tipo = "1";
+
+            let potenciaDoMotor: string = (<Carro>veiculos[i]).potenciaDoMotor;
+            let tipoDeCombustivel: string = (<Carro>veiculos[i]).tipoDeCombustivel;
+            let tipoDeCambio: string = (<Carro>veiculos[i]).tipoDeCambio;
+            let tipoDeDirecao: string = (<Carro>veiculos[i]).tipoDeDirecao;
+
+            stringDeDados += `${tipo},${id},${modelo},${ano},${valorDeVenda},` +
+                              `${potenciaDoMotor},${tipoDeCombustivel},` +
+                              `${tipoDeCambio},${tipoDeDirecao}\n`;
+        }
+
+        if (veiculos[i] instanceof Moto) {
+            tipo = "2";
+
+            let cilindradas: number =  (<Moto>veiculos[i]).cilindradas;
+
+            stringDeDados += `${tipo},${id},${modelo},${ano},${valorDeVenda},${cilindradas}\n`;
+        }
+    }
+
+    console.log(stringDeDados);
+
+    fs.writeFileSync(enderecoDoArquivo, stringDeDados);
 }

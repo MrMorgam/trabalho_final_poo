@@ -101,9 +101,15 @@ do {
             console.log("Erro inesperado: contate o administrador do sistema.");
         }
     }
-    console.log("");
-    input("Operação finalizada. Pressione <enter>");
+    if (opcao != '0') {
+        console.log("");
+        input("Operação finalizada. Pressione <enter>");
+    }
 } while (opcao != "0");
+console.clear();
+console.log("Salvando arquivo de texto...\n");
+salvarArquivoDeTexto();
+input("Arquivo salvo. Precione <ENTER>");
 console.clear();
 // Funções de CRUD
 function inserir() {
@@ -198,7 +204,7 @@ function calcularIPVA() {
     let id = Number(input("ID: "));
     console.log(`R$ ${concessionaria.calcularIPVA(id)}`);
 }
-// Função para carregar lista de veículos em arquivo
+// Funções para carregar e salvar lista de veículos em arquivo
 function carregarArquivoDeTexto() {
     let enderecoDoArquivo = "../veiculos.txt";
     let arquivo;
@@ -230,4 +236,36 @@ function carregarArquivoDeTexto() {
             concessionaria.inserir(novoVeiculo);
         }
     }
+}
+function salvarArquivoDeTexto() {
+    let enderecoDoArquivo = "../veiculos.txt";
+    let veiculos = [];
+    for (let i = 0; i < concessionaria.contarVeiculos(); i++) {
+        veiculos[i] = concessionaria.consultarPorIndice(i);
+    }
+    let stringDeDados = "";
+    for (let i = 0; i < veiculos.length; i++) {
+        let tipo;
+        let id = String(veiculos[i].id);
+        let modelo = veiculos[i].modelo;
+        let ano = String(veiculos[i].ano);
+        let valorDeVenda = String(veiculos[i].valorDeVenda);
+        if (veiculos[i] instanceof carro_1.Carro) {
+            tipo = "1";
+            let potenciaDoMotor = veiculos[i].potenciaDoMotor;
+            let tipoDeCombustivel = veiculos[i].tipoDeCombustivel;
+            let tipoDeCambio = veiculos[i].tipoDeCambio;
+            let tipoDeDirecao = veiculos[i].tipoDeDirecao;
+            stringDeDados += `${tipo},${id},${modelo},${ano},${valorDeVenda},` +
+                `${potenciaDoMotor},${tipoDeCombustivel},` +
+                `${tipoDeCambio},${tipoDeDirecao}\n`;
+        }
+        if (veiculos[i] instanceof moto_1.Moto) {
+            tipo = "2";
+            let cilindradas = veiculos[i].cilindradas;
+            stringDeDados += `${tipo},${id},${modelo},${ano},${valorDeVenda},${cilindradas}\n`;
+        }
+    }
+    console.log(stringDeDados);
+    fs.writeFileSync(enderecoDoArquivo, stringDeDados);
 }

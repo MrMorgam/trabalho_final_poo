@@ -8,7 +8,8 @@ import { VeiculoInexistenteException, VeiculoJaCadastradoException,
 class Concessionaria {
     private _veiculos: Veiculo[] = [];
 
-    // Método para consultar índice
+
+    // Métodos para consultar índice
 
     private consultarIndice(id: number): number {
         let indice: number = -1;
@@ -27,8 +28,7 @@ class Concessionaria {
         return indice;
     }
 
-
-    private consultarIndiceSemExcecao(id: number) {
+    private consultarIndiceSemExcecao(id: number): number {
         let indice: number = -1;
 
         for (let i: number = 0; i < this._veiculos.length; i++) {
@@ -40,6 +40,11 @@ class Concessionaria {
         
         return indice;
     }
+
+    public consultarPorIndice(indice: number): Veiculo {
+        return this._veiculos[indice];
+    }
+
 
     // Métodos de validação
 
@@ -62,6 +67,7 @@ class Concessionaria {
             throw new ValorDeVendaInvalidoException("Erro: valor de venda inválido");
         }
     }
+
 
     // Métodos de CRUD
 
@@ -106,6 +112,7 @@ class Concessionaria {
         this._veiculos.pop();
     }
 
+
     // Métodos de estoque
 
     public darBaixa(quantidade: number, id: number): void {
@@ -147,6 +154,7 @@ class Concessionaria {
         return listaVeiculos;
     }
 
+
     // Método de cálculo de impostos
 
     public calcularIPVA(id: number): number {
@@ -156,6 +164,12 @@ class Concessionaria {
 
         return (<Tributavel><unknown>veiculo).calcularIPVA(veiculo.valorDeVenda);
     
+    }
+
+    // Método para mostrar a quantidade de veículos cadastrados
+
+    public contarVeiculos(): number {
+        return this._veiculos.length;
     }
 }
 

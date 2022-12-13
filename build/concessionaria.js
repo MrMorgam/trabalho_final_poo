@@ -4,7 +4,7 @@ exports.Concessionaria = void 0;
 const execoes_1 = require("./execoes");
 class Concessionaria {
     _veiculos = [];
-    // Método para consultar índice
+    // Métodos para consultar índice
     consultarIndice(id) {
         let indice = -1;
         for (let i = 0; i < this._veiculos.length; i++) {
@@ -27,6 +27,9 @@ class Concessionaria {
             }
         }
         return indice;
+    }
+    consultarPorIndice(indice) {
+        return this._veiculos[indice];
     }
     // Métodos de validação
     validarNumeroId(id) {
@@ -111,6 +114,10 @@ class Concessionaria {
         let indice = this.consultarIndice(id);
         let veiculo = this._veiculos[indice];
         return veiculo.calcularIPVA(veiculo.valorDeVenda);
+    }
+    // Método para mostrar a quantidade de veículos cadastrados
+    contarVeiculos() {
+        return this._veiculos.length;
     }
 }
 exports.Concessionaria = Concessionaria;
